@@ -34,6 +34,6 @@ Restart the local InfluxDB server:
 
 Query the local database (example):
 
-`curl -G 'http://localhost:8086/query?pretty=true' "db=realms" --data-urlencode "q=SELECT * FROM SOL_TYPE_DUST_EVENTMOTECREATE GROUP BY mac limit 1000" > influx_dump`
+`curl -G 'http://localhost:8086/query?pretty=true' --data-urlencode "db=realms" --data-urlencode "q=SELECT * FROM SOL_TYPE_DUST_SNAPSHOT WHERE site = 'ARG_junin'" > DUST_SNAPSHOT.dump`
 
 TODO: add script to export data into json
