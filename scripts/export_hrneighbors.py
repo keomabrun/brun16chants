@@ -29,6 +29,7 @@ for obj in json_list:
             out_file.write(
                 time+','+\
                 str(mote_id)+','+\
+                str(value["neighborId"])+','+\
                 str(value["rssi"])+\
                 '\n'
             )
