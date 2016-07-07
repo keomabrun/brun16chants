@@ -69,6 +69,7 @@ The back-end system stores and backups the data and provide both a visual interf
 
 The low-power wireless network is composed of 21 nodes uniformly distributed between the peach trees.
 The covered area is an orchard with 204 trees on a 50*100m surface.
+Each network mote is placed inside a water-tight box that is fixed on a 4m pole~\ref{fig:orchard}.
 Because the project is on its first stage, we only measure air temperature from built-in sensors.
 During the second stage, we will introduce additional sensors such as air temperature at different high, air relative humidity, soil moisture and soil temperature.
 
@@ -76,12 +77,14 @@ During the second stage, we will introduce additional sensors such as air temper
     \centering
     \includegraphics[width=\columnwidth]{orchard}
     \caption{The wireless motes deployed inside the orchard in Mendoza (Argentina)}
-    \label{fig:map}
+    \label{fig:orchard}
 \end{figure}
 
 % the data
-Currently, each mote produce a temperature value every 30 seconds and network statistics every 5~minutes.
+
+Each mote produce a temperature value every 30 seconds and network statistics, called ``health-reports'', every 5~minutes.
 In 3~months, we gathered more than 2M~temperature value, and more than 180K~network statistics.
+The health reports produced by any mote contain information about the mote itself and also about its neighbors.
 %65184 HR_DEVICE, 63245 HR_DISCOVERED and 50285 HR_NEIGHBORS
 
 
@@ -90,6 +93,12 @@ In 3~months, we gathered more than 2M~temperature value, and more than 180K~netw
 % the goal of this paper
 
 The goal of this paper is to present the first feedbacks we have from this 3-month-old project.
+\lorem
+
+% paper organisation
+This paper is organized as follow:
+Section~\ref{sec:collected} gives an in-depth description of the data we collect.
+
 \lorem
 
 %==============================================================================
