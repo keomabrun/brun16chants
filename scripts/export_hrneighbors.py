@@ -18,6 +18,7 @@ query       +=  " WHERE site='ARG_junin' GROUP BY mac"
 json_list   = tools.influxdb_to_json(influxClient.query(query).raw)
 
 # write json to file
+out_file.write("time,moteid,neighborId,neighborFlag,rssi,numTxPackets,numTxFailures,numRxPackets\n")
 for obj in json_list:
     time    = tools.iso_to_epoch(obj["timestamp"])
     mote_id = tools.mac_to_id(obj["mac"],time)
@@ -30,6 +31,10 @@ for obj in json_list:
                 time+','+\
                 str(mote_id)+','+\
                 str(value["neighborId"])+','+\
-                str(value["rssi"])+\
+                str(value["neighborFlag"])+','+\
+                str(value["rssi"])+','+\
+                str(value["numTxPackets"])+','+\
+                str(value["numTxFailures"])+','+\
+                str(value["numRxPackets"])+\
                 '\n'
             )
