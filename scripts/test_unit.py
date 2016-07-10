@@ -9,3 +9,4 @@ def test_id_to_mac():
     mote_id     = 6
     mote_mac    = "00-17-0d-00-00-3f-fe-87"
     assert mote_mac == tools.id_to_mac(mote_id,1461282879)
+    assert tools.id_to_mac(mote_id,1460282879) is None

@@ -21,21 +21,18 @@ json_list   = tools.influxdb_to_json(influxClient.query(query).raw)
 out_file.write("time,mac,neighborMac,neighborFlag,rssi,numTxPackets,numTxFailures,numRxPackets\n")
 for obj in json_list:
     time    = tools.iso_to_epoch(obj["timestamp"])
-    mote_id = tools.mac_to_id(obj["mac"],time)
-
-    if mote_id is None:
-        pass
 
     for key, value in obj["value"]["neighbors"].iteritems():
         nbr_mac = tools.id_to_mac(value["neighborId"],time)
-        out_file.write(
-            time+','+\
-            str(obj["mac"])+','+\
-            str(nbr_mac)+','+\
-            str(value["neighborFlag"])+','+\
-            str(value["rssi"])+','+\
-            str(value["numTxPackets"])+','+\
-            str(value["numTxFailures"])+','+\
-            str(value["numRxPackets"])+\
-            '\n'
-        )
+        if nbr_mac is not None:
+            out_file.write(
+                str(time)+','+\
+                str(obj["mac"])+','+\
+                str(nbr_mac)+','+\
+                str(value["neighborFlag"])+','+\
+                str(value["rssi"])+','+\
+                str(value["numTxPackets"])+','+\
+                str(value["numTxFailures"])+','+\
+                str(value["numRxPackets"])+\
+                '\n'
+            )

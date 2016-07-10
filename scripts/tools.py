@@ -70,7 +70,7 @@ def influxdb_to_json(sol_influxdb):
     return json_list
 
 def iso_to_epoch(iso_time):
-    return str(calendar.timegm(time.strptime(iso_time, '%Y-%m-%dT%H:%M:%SZ')))
+    return calendar.timegm(time.strptime(iso_time, '%Y-%m-%dT%H:%M:%SZ'))
 
 def mac_to_id(mac, time):
     line = 1
@@ -87,6 +87,21 @@ def mac_to_id(mac, time):
                 moteid = int(event[2])
             line += 1
     return moteid
+
+def id_to_mac(mote_id, time):
+    line = 1
+    mote_mac = None
+    with open(MOTECREATE_PATH) as csvfile:
+        createmote_reader = csv.reader(csvfile, delimiter=',', quotechar='|')
+        event_list = list(createmote_reader)[1:]
+
+        for event in reversed(event_list):
+            if int(event[2]) == mote_id:
+                if int(event[0]) < time:
+                    mote_mac = event[1]
+                    break
+    return mote_mac
+
 
 
 
