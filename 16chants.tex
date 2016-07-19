@@ -121,7 +121,16 @@ Section~\ref{sec:collected} gives an in-depth description of the data we collect
 
 % health report description
 
-\lorem
+Each device in the network produce both sensor data and network statistics.
+Network statistics can be separated in \textbf{Events} and \textbf{Health Reports} messages.
+The Events messages are non periodic information triggered for instance when a node join the network or when a link (layer 2) is created/deleted.
+The Health Report (HR) message are sent every 5 minutes.
+There are three types of HR:
+\begin{itemize}
+  \item HR\_DEVICE give information about the mote itself
+  \item HR\_NEIGHBORS give information about the mote active neighbors
+  \item HR\_DISCOVERED give information about the mote potential neighbors
+\end{itemize}
 
 % HR_DEVICE
 
@@ -152,7 +161,7 @@ Section~\ref{sec:collected} gives an in-depth description of the data we collect
 \begin{figure}
     \centering
     \includegraphics[width=\columnwidth]{periodic_rssi}
-    \caption{The RSSI value of node 0f-66 as received by mote 03-82 over a week.}
+    \caption{The RSSI value of node 60-03-82 as received by mote 60-08-d5 over a week.}
     \label{fig:periodic_rssi}
 \end{figure}
 
