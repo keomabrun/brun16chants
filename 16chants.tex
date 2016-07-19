@@ -88,6 +88,12 @@ During the second stage, we will introduce additional sensors such as air temper
     \label{fig:orchard}
 \end{figure}
 
+% the technology
+
+The \smip motes are based on the IEEE 802.15.4e standard that includes a channel hopping mechanism to reduce the impact of multipath fading.
+Channel hopping exploit the frequency diversity to reduce the probability of interferences and improve link reliability.
+This mechanism show good results in the Wireless Sensor Network (WSN) context~\cite{watteyne2010mitigating, watteyne2009reliability} and allows to achieve high reliability while saving energy.
+
 % the data
 
 Each mote produce a temperature value every 30 seconds and network statistics, called ``health-reports'', every 5~minutes.
@@ -100,7 +106,7 @@ The health reports produced by any mote contain information about the mote itsel
 
 % the goal of this paper
 
-The goal of this paper is to present the first feedbacks we have from the 3-month-old project.
+The goal of this paper is to present the first feedbacks we have from the 3-month-old project and the lessons we learned from deploying WSN in real environment.
 \lorem
 
 % paper organisation
@@ -163,6 +169,13 @@ Section~\ref{sec:collected} gives an in-depth description of the data we collect
 
 \lorem
 
+\begin{figure}
+    \centering
+    \includegraphics[width=\columnwidth]{periodic_rssi}
+    \caption{The RSSI value of node 0f-66 as received by mote 03-82 over a week.}
+    \label{fig:topology}
+\end{figure}
+
 %==============================================================================
 \section{Reliability}
 \label{sec:reliability}
@@ -170,6 +183,13 @@ Section~\ref{sec:collected} gives an in-depth description of the data we collect
 % reliability expectation
 
 \lorem
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\columnwidth]{periodic_rssi}
+    \caption{The RSSI value of node 0f-66 as received by mote 03-82 over a week.}
+    \label{fig:reliability}
+\end{figure}
 
 %==============================================================================
 \section{Technology Feedbacks}
