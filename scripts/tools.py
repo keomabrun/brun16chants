@@ -103,6 +103,26 @@ def id_to_mac(mote_id, time):
                     break
     return mote_mac
 
+def mac_to_position(mote_mac, time):
+    line        = 1
+    mote_lat    = None
+    mote_long   = None
+
+    with open(MOTECREATE_PATH) as csvfile:
+        createmote_reader = csv.reader(csvfile, delimiter=',', quotechar='|')
+        event_list = list(createmote_reader)[1:]
+
+        for event in reversed(event_list):
+            if event[1] == mote_mac:
+                if int(event[0]) < time:
+                    if event[3] != "":
+                        mote_lat    = float(event[3])
+                    if event[4] != "":
+                        mote_long   = float(event[4])
+                    break
+
+    return mote_lat, mote_long
+
 def distance_on_unit_sphere(lat1, long1, lat2, long2):
     """
     Code from John Cook.
