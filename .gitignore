@@ -24,3 +24,5 @@
 *.pdf
 
 notebooks/.ipynb_checkpoints/
+
+*.swp
