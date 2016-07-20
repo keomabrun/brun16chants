@@ -20,12 +20,13 @@ query       +=  " WHERE site='ARG_junin' GROUP BY mac"
 json_list   = tools.influxdb_to_json(influxClient.query(query).raw)
 
 # write json to file
-out_file.write('time,mac,id,lat,long\n')
+out_file.write('time,mac,id,lat,long,board\n')
 for obj in json_list:
     # query for latitude and longitude
     latitude = ""
     longitude = ""
-    query   = "SELECT temperature,latitude,longitude FROM SOL_TYPE_DUST_OAP_TEMPSAMPLE"
+    board = ""
+    query   = "SELECT temperature,latitude,longitude,board FROM SOL_TYPE_DUST_OAP_TEMPSAMPLE"
     query  += " WHERE time < '" + obj["timestamp"] + "'"
     query  += " and mac='" + obj["value"]["macAddress"] + "'"
     query  += " GROUP by mac"
@@ -39,11 +40,15 @@ for obj in json_list:
             latitude = res_json["value"]["latitude"]
             longitude = res_json["value"]["longitude"]
 
+        if res_json["value"]["board"] is not None:
+            board = res_json["value"]["board"]
+
     out_file.write(
         str(tools.iso_to_epoch(obj["timestamp"]))+','+\
         obj["value"]["macAddress"]+','+\
         str(obj["value"]["moteId"])+','+\
         str(latitude)+','+\
-        str(longitude)+\
+        str(longitude)+','+\
+        board+\
         '\n'
     )
