@@ -175,7 +175,8 @@ The peach orchard is located in a rural area that is not exposed to high traffic
 Heavy machinery is used by farmers inside the orchards and could create internal interferences such as multipath fading.
 Because the network exploits frequency diversity by using channel hopping techniques and that RSSI values are averaged over the all the channels, we should observe a relatively constant values on short period of time.
 
-% periodic RSSI
+%------------------------------------------------------------------------------
+\subsection{Time pattern}
 
 By looking at the data, we can observe a clear day-periodic pattern on some of the motes.
 Figure~\ref{fig:periodic_rssi} presents the average RSSI value of node 60-03-82 as received by node 60-08-d5 over a week.
@@ -191,7 +192,8 @@ That is, average RSSI can be 8~dBm better during the night than during the day.
 
 Although we are not able to prove this assumption with our current data, one possible explanation can be the impact of temperature and humidity on RSSI~\cite{luomala15effects}.
 
-% RSSI variation
+%------------------------------------------------------------------------------
+\subsection{Variation}
 
 As said previously, average RSSI should remain relatively constant due to channel hopping.
 Figure~\ref{fig:rssi_variation} shows that the difference between two consecutive average RSSI values does not go above 6dBm and has a standard deviation of 1.56 dBm.
@@ -215,6 +217,13 @@ This variation is low considering that we have 15~min sampling period.
     \label{fig:periodic_pdr}
 \end{figure}
 
+\begin{figure}
+    \centering
+    \includegraphics[width=\columnwidth]{pdr_dist}
+    \caption{The relation between PDR and distance. No pattern or trend are visually identifiable.}
+    \label{fig:pdr_dist}
+\end{figure}
+
 %==============================================================================
 \section{Topology}
 \label{sec:topology}
@@ -227,12 +236,12 @@ This variation is low considering that we have 15~min sampling period.
 
 \lorem
 
-\begin{figure}
-    \centering
-    \includegraphics[width=\columnwidth]{periodic_rssi}
-    \caption{The RSSI value of node 0f-66 as received by mote 03-82 over a week.}
-    \label{fig:topology}
-\end{figure}
+%\begin{figure}
+%    \centering
+%    \includegraphics[width=\columnwidth]{periodic_rssi}
+%    \caption{The RSSI value of node 0f-66 as received by mote 03-82 over a week.}
+%    \label{fig:topology}
+%\end{figure}
 
 %==============================================================================
 \section{Reliability}
@@ -242,12 +251,12 @@ This variation is low considering that we have 15~min sampling period.
 
 \lorem
 
-\begin{figure}
-    \centering
-    \includegraphics[width=\columnwidth]{periodic_rssi}
-    \caption{The RSSI value of node 0f-66 as received by mote 03-82 over a week.}
-    \label{fig:reliability}
-\end{figure}
+%\begin{figure}
+%    \centering
+%    \includegraphics[width=\columnwidth]{periodic_rssi}
+%    \caption{The RSSI value of node 0f-66 as received by mote 03-82 over a week.}
+%    \label{fig:reliability}
+%\end{figure}
 
 %==============================================================================
 \section{Technology Feedbacks}
