@@ -124,17 +124,36 @@ Section~\ref{sec:collected} gives an in-depth description of the data we collect
 Each device in the network produce both sensor data and network statistics.
 Network statistics can be separated in \textbf{Events} and \textbf{Health Reports} messages.
 The Events messages are non periodic information triggered for instance when a node join the network or when a link (layer 2) is created/deleted.
-The Health Report (HR) message are sent every 5 minutes.
+The Health Report (HR) message are sent periodically and provide counters and statistics to assess the overall network health.
 There are three types of HR:
 \begin{itemize}
   \item HR\_DEVICE give information about the mote itself
   \item HR\_NEIGHBORS give information about the mote active neighbors
   \item HR\_DISCOVERED give information about the mote potential neighbors
 \end{itemize}
+Each device sends one type of Health Report every 5~min making the complete set of Health Report generated every 15~min.
 
-% HR_DEVICE
+%------------------------------------------------------------------------------
+\subsection{HR\_DEVICE}
 
-\lorem
+An HR\_DEVICE message contains the following fields:
+\begin{tabular}{l|p{6cm}}
+    field name      & description\\
+    \hline
+    charge          & node charge in mC\\
+    queueOcc        & mean and max queue occupancy.\\
+    temperature     & built-in temperature sensor value in C\\
+    batteryVoltage  & node battery voltage in mV\\
+    numTxOk         & number of packets sent from NET to MAC\\
+    numTxFail       & number of packets not sent due to congestion or failure to allocate a packet\\
+    numRxOk         & number of packets received\\
+    numRxLost       & number of packets lost (discarded by NET layer due to misc errors)\\
+    numMacDropped   & number of packets dropped by MAC (due to retry count or age or no route)\\
+    numTxBad        & transmit failure counter for bad link\\
+    badLinkFrameId  & frame id of link with the worst performance over the last health report interval\\
+    badLinkSlot     & slot of link with the worst performance over the last health report interval\\
+    badLinkOffset   & offset of link with the worst performance over the last health report interval\\
+\end{tabular}
 
 % HR_DISCOVERED
 
@@ -150,13 +169,17 @@ There are three types of HR:
 
 % RSSI expectations
 
-\lorem
-
-% what we found
-
-\lorem
+The RSSI values can be retrieved from both active neighbors and discovered neighbors Health Reports, thus every 15~min for each pair of device.
+The peach orchard is located in a rural area that is not exposed to high traffic on the ISM band so we do not expect important external interferences.
+Heavy machinery is used by farmers inside the orchards and could create internal interferences such as multipath fading.
+Because the network exploit frequency diversity by using channel hopping techniques, it should not suffer from this kind of interference neither.
 
 % periodic RSSI
+
+By looking at the data, we can observe a clear day-periodic pattern on some of the motes.
+Figure~\ref{fig:periodic_rssi} presents the RSSI value of node 60-03-82 as received by node 60-08-d5 over a week.
+The RSSI value range from -84 to -76~dBm and correspond with midday and midnight hours respectively.
+That is, RSSI can be 8~dBm better during the night than during the day.
 
 \begin{figure}
     \centering
@@ -164,6 +187,12 @@ There are three types of HR:
     \caption{The RSSI value of node 60-03-82 as received by mote 60-08-d5 over a week.}
     \label{fig:periodic_rssi}
 \end{figure}
+
+Although we are not able to prove this assumption with our current data, one possible explanation can be the impact of temperature and humidity on RSSI~\cite{luomala15effects}.
+
+%==============================================================================
+\section{PDR}
+\label{sec:pdr}
 
 \begin{figure}
     \centering
