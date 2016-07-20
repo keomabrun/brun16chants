@@ -14,7 +14,7 @@
 % reviews
 \newcommand{\thomas}[1]             {\textcolor{blue}{[Thomas] #1}}
 \newcommand{\javier}[1]             {\textcolor{purple}{[Javier] #1}}
-\newcommand{\keoma}[1]              {\textcolor{green}{[Keoma] #1}}
+\newcommand{\keoma}[1]              {\textcolor{cyan}{[Keoma] #1}}
 \newcommand{\remy}[1]               {\textcolor{yellow}{[Remy] #1}}
 \newcommand{\jonathan}[1]           {\textcolor{pink}{[Jonathan] #1}}
 
@@ -136,6 +136,7 @@ Each device sends one type of Health Report every 5~min making the complete set 
 %------------------------------------------------------------------------------
 \subsection{HR\_DEVICE}
 
+\keoma{should we actually put all the technical details here ?}
 An HR\_DEVICE message contains the following fields:
 \begin{tabular}{l|p{6cm}}
     field name      & description\\
@@ -186,7 +187,7 @@ That is, average RSSI can be 8~dBm better during the night than during the day.
 \begin{figure}
     \centering
     \includegraphics[width=\columnwidth]{periodic_rssi}
-    \caption{The average RSSI value of node 60-03-82 as received by mote 60-08-d5 over a week.}
+    \caption{The average RSSI value of node 60-03-82 as received by mote 60-08-d5 over a week. A clear day periodicity can be observed.}
     \label{fig:periodic_rssi}
 \end{figure}
 
@@ -202,13 +203,30 @@ This variation is low considering that we have 15~min sampling period.
 \begin{figure}
     \centering
     \includegraphics[width=\columnwidth]{rssi_variation}
-    \caption{The variation of average RSSI value of node 60-03-82 as received by mote 60-08-d5 over a week.}
+    \caption{The variation of average RSSI value of node 60-03-82 as received by mote 60-08-d5 over a week. Variation are small considering the 15~min sampling rate.}
     \label{fig:rssi_variation}
+\end{figure}
+
+%------------------------------------------------------------------------------
+\subsection{RSSI and Distance}
+
+\lorem
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\columnwidth]{fake}
+    \caption{The famous Pister-Hack model here}
+    \label{fig:rssi_dist}
 \end{figure}
 
 %==============================================================================
 \section{PDR}
 \label{sec:pdr}
+
+% intro
+
+% PDR periodicity/patterns
+\lorem
 
 \begin{figure}
     \centering
@@ -216,6 +234,10 @@ This variation is low considering that we have 15~min sampling period.
     \caption{The PDR when node 60-08-d5 sends data to 60-03-82 over a week.}
     \label{fig:periodic_pdr}
 \end{figure}
+
+% PDR and distance
+
+\lorem
 
 \begin{figure}
     \centering
@@ -236,12 +258,23 @@ This variation is low considering that we have 15~min sampling period.
 
 \lorem
 
-%\begin{figure}
-%    \centering
-%    \includegraphics[width=\columnwidth]{periodic_rssi}
-%    \caption{The RSSI value of node 0f-66 as received by mote 03-82 over a week.}
-%    \label{fig:topology}
-%\end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[width=\columnwidth]{fake}
+    \caption{Network churn here}
+    \label{fig:net_churn}
+\end{figure}
+
+% network load distribution
+
+\lorem
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\columnwidth]{fake}
+    \caption{Load distribution here}
+    \label{fig:net_flows}
+\end{figure}
 
 %==============================================================================
 \section{Reliability}
@@ -251,17 +284,17 @@ This variation is low considering that we have 15~min sampling period.
 
 \lorem
 
-%\begin{figure}
-%    \centering
-%    \includegraphics[width=\columnwidth]{periodic_rssi}
-%    \caption{The RSSI value of node 0f-66 as received by mote 03-82 over a week.}
-%    \label{fig:reliability}
-%\end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[width=\columnwidth]{fake}
+    \caption{The RSSI value of node 0f-66 as received by mote 03-82 over a week.}
+    \label{fig:reliability}
+\end{figure}
 
 %==============================================================================
 \section{Technology Feedbacks}
 \label{sec:technology}
-
+\keoma{is this section relevant ?}
 % intro (why is this section relevant)
 
 \lorem
@@ -278,8 +311,13 @@ This variation is low considering that we have 15~min sampling period.
 
 \lorem
 
+%==============================================================================
+\section{Conclusion}
+\label{sec:conclusion}
+
 % conclusion
 
+\lorem
 
 %==============================================================================
 
