@@ -7,6 +7,7 @@ import math
 #-CONSTANTS-------------------------------------------------------------------#
 
 MOTECREATE_PATH = "../data/motecreate.csv"
+SNAPSHOT_PATH   = "../data/snapshot.csv"
 
 #-----------------------------------------------------------------------------#
 
@@ -34,15 +35,17 @@ def influxdb_to_json(sol_influxdb):
             d_influxdb = dict(zip(serie['columns'], val))
 
             # remove null values
-            #for key in obj.keys():
-            #    if obj[key] is None:
-            #        del(obj[key])
+            for key in d_influxdb.keys():
+                if d_influxdb[key] is None:
+                    del(d_influxdb[key])
 
             # unflat dict
             obj_value = flatdict.FlatDict(d_influxdb).as_dict()
 
             # parse specific objects
             if serie['name'] == "SOL_TYPE_DUST_NOTIF_HRNEIGHBORS" :
+                if "neighbors" not in obj_value:
+                    continue
                 for i in range(0,len(obj_value["neighbors"])+1):
                     ngbr_id = str(i)
 
@@ -56,6 +59,17 @@ def influxdb_to_json(sol_influxdb):
                         if obj_value[ngbr_id]["neighborFlag"] is not None:
                             obj_value["neighbors"][ngbr_id] = obj_value[ngbr_id]
                         del obj_value[ngbr_id]
+
+            if serie['name'] == "SOL_TYPE_DUST_SNAPSHOT" :
+                if "mote" not in obj_value:
+                    continue
+                obj_value["motes"] = []
+                for i in range(0,len(obj_value["mote"])+1):
+                    mote_id = str(i)
+
+                    if mote_id in obj_value["mote"]:
+                        obj_value["motes"].append(obj_value["mote"][mote_id])
+                        del obj_value["mote"][mote_id]
 
             # time is not passed in the "value" field
             del obj_value["time"]
@@ -89,10 +103,16 @@ def mac_to_id(mac, time):
             line += 1
     return moteid
 
-def id_to_mac(mote_id, time):
+def id_to_mac(mote_id, time, safe=False):
     line = 1
     mote_mac = None
-    with open(MOTECREATE_PATH) as csvfile:
+    mote_board = None
+    infile = MOTECREATE_PATH
+
+    if safe:
+        infile = SNAPSHOT_PATH
+
+    with open(infile) as csvfile:
         createmote_reader = csv.reader(csvfile, delimiter=',', quotechar='|')
         event_list = list(createmote_reader)[1:]
 
@@ -100,15 +120,21 @@ def id_to_mac(mote_id, time):
             if int(event[2]) == mote_id:
                 if int(event[0]) < time:
                     mote_mac = event[1]
+                    if event[5] != "":
+                        mote_board   = event[5]
                     break
-    return mote_mac
+    return mote_mac, mote_board
 
-def mac_to_position(mote_mac, time):
+def mac_to_position(mote_mac, time, safe=False):
     line        = 1
     mote_lat    = None
     mote_long   = None
+    infile = MOTECREATE_PATH
 
-    with open(MOTECREATE_PATH) as csvfile:
+    if safe:
+        infile = SNAPSHOT_PATH
+
+    with open(infile) as csvfile:
         createmote_reader = csv.reader(csvfile, delimiter=',', quotechar='|')
         event_list = list(createmote_reader)[1:]
 
@@ -122,6 +148,27 @@ def mac_to_position(mote_mac, time):
                     break
 
     return mote_lat, mote_long
+
+def mac_to_board(mote_mac, time, safe=False):
+    line        = 1
+    mote_board  = None
+    infile = MOTECREATE_PATH
+
+    if safe:
+        infile = SNAPSHOT_PATH
+
+    with open(infile) as csvfile:
+        createmote_reader = csv.reader(csvfile, delimiter=',', quotechar='|')
+        event_list = list(createmote_reader)[1:]
+
+        for event in reversed(event_list):
+            if event[1] == mote_mac:
+                if int(event[0]) < time:
+                    if event[5] != "":
+                        mote_board   = event[5]
+                    break
+
+    return mote_board
 
 def distance_on_unit_sphere(lat1, long1, lat2, long2):
     """
