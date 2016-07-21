@@ -3,7 +3,7 @@ import influxdb
 import tools
 
 # open output file
-out_file = open('../data/hr_neighbors.csv','w')
+out_file = open('../data/hr_neighbors_safe.csv','w')
 
 # configure influxDB
 influxClient = influxdb.client.InfluxDBClient(
@@ -14,15 +14,19 @@ influxClient = influxdb.client.InfluxDBClient(
 
 # query influxDB
 query       =   "SELECT * FROM SOL_TYPE_DUST_NOTIF_HRNEIGHBORS"
-query       +=  " WHERE site='ARG_junin' GROUP BY mac"
+query       +=  " WHERE site='ARG_junin'"
+query       +=  " AND time > '2016-06-18T18:30:00Z' GROUP BY mac"
+print query
 json_list   = tools.influxdb_to_json(influxClient.query(query).raw)
 
 # write json to file
 out_file.write("time,mac,neighborMac,neighborFlag,rssi,numTxPackets,numTxFailures,numRxPackets,mote_board,ngbr_board,distance\n")
+out_file.close()
+out_file = open('../data/hr_neighbors_safe.csv','a')
 for obj in json_list:
     time                = tools.iso_to_epoch(obj["timestamp"])
-    mote_lat, mote_long = tools.mac_to_position(obj["mac"],time)
-    mote_board          = tools.mac_to_board(obj["mac"],time)
+    mote_lat, mote_long = tools.mac_to_position(obj["mac"],time,True)
+    mote_board          = tools.mac_to_board(obj["mac"],time,True)
 
     if mote_board is None:
         mote_board = ""
@@ -30,7 +34,7 @@ for obj in json_list:
     for key, nghbr in obj["value"]["neighbors"].iteritems():
 
         distance                = -1
-        nghbr_mac, nghbr_board  = tools.id_to_mac(nghbr["neighborId"],time)
+        nghbr_mac, nghbr_board  = tools.id_to_mac(nghbr["neighborId"],time,True)
         nghbr_lat, nghbr_long   = tools.mac_to_position(nghbr_mac,time)
         if nghbr_lat is not None and mote_lat is not None:
             distance = tools.distance_on_unit_sphere(
