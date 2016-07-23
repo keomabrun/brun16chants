@@ -54,6 +54,7 @@
 \lorem
 \end{abstract}
 
+\keoma{TODO:replace all images with .eps}
 
 %==============================================================================
 \section{Introduction}
@@ -90,6 +91,13 @@ During the second stage, we will introduce additional sensors such as air temper
     \caption{The wireless motes deployed inside the orchard in Mendoza (Argentina)}
     \label{fig:orchard}
 \end{figure}
+
+\begin{figure*}
+    \centering
+    \includegraphics[width=\textwidth]{map_annotated}
+    \caption{A map of the sensor deployed in the orchard near Mendoza (Argentina)}
+    \label{fig:map}
+\end{figure*}
 
 % the technology
 
@@ -140,7 +148,7 @@ Each device sends one type of Health Report every 5~min making the complete set 
 \subsection{HR\_DEVICE}
 
 \keoma{should we actually put all the technical details here ?}
-An HR\_DEVICE message contains the following fields:
+An HR\_DEVICE message contains the following fields:\\
 \begin{tabular}{l|p{6cm}}
     field name      & description\\
     \hline
@@ -181,36 +189,15 @@ Those movements could create internal interferences such as multipath fading.
 Because the network exploits frequency diversity by using channel hopping techniques and that RSSI values are averaged over the all the channels, we should observe a relatively constant values on short period of time.
 
 %------------------------------------------------------------------------------
-\subsection{Time pattern}
-
-By looking at the data, we can observe a clear day-periodic pattern on some of the motes.
-Figure~\ref{fig:periodic_rssi} presents the average RSSI value of node 60-03-82 as received by node 60-08-d5 over a week.
-The RSSI value range from -86 to -76~dBm and correspond with midday and midnight hours respectively.
-That is, average RSSI can be 8~dBm better during the night than during the day.
-
-\keoma{TODO: add day/night colors on graph}
-\begin{figure}
-    \centering
-    \includegraphics[width=\columnwidth]{periodic_rssi}
-    \caption{The average RSSI value of node 60-03-82 as received by mote 60-08-d5 over a week. A clear day periodicity can be observed.}
-    \label{fig:periodic_rssi}
-\end{figure}
-
-Although we are not able to prove this assumption with our current data, one possible explanation can be the impact of temperature and humidity on RSSI~\cite{luomala15effects}.
-
-%------------------------------------------------------------------------------
-\subsection{Variation}
-
-As said previously, average RSSI should remain relatively constant due to channel hopping.
-Figure~\ref{fig:rssi_variation} shows that the difference between two consecutive average RSSI values does not go above 6dBm and has a standard deviation of 1.56 dBm.
-This variation is low considering that we have 15~min sampling period.
+\subsection{Link symmetry}
 
 \begin{figure}
     \centering
-    \includegraphics[width=\columnwidth]{rssi_variation}
-    \caption{The variation of average RSSI value of node 60-03-82 as received by mote 60-08-d5 over a week. Variation are small considering the 15~min sampling rate.}
-    \label{fig:rssi_variation}
+    \includegraphics[width=\columnwidth]{tab_symmetry}
+    \caption{The different active links between 2016-06-18 and 2016-06-25}
+    \label{fig:tab_symmetry}
 \end{figure}
+
 
 %------------------------------------------------------------------------------
 \subsection{RSSI and Distance}
@@ -219,48 +206,21 @@ This variation is low considering that we have 15~min sampling period.
 
 \begin{figure}
     \centering
-    \includegraphics[width=\columnwidth]{fake}
+    \includegraphics[width=\columnwidth]{pister_hack}
     \caption{The famous Pister-Hack model here}
-    \label{fig:rssi_dist}
+    \label{fig:pister_hack}
 \end{figure}
 
 %------------------------------------------------------------------------------
-\subsection{Link Asymmetry}
+\subsection{PDR and RSSI}
 
 \lorem
 
 \begin{figure}
     \centering
-    \includegraphics[width=\columnwidth]{fake}
-    \caption{RSSI comparison in both direction with the same pare of node.}
-    \label{fig:rssi_asymmetry}
-\end{figure}
-
-%==============================================================================
-\section{PDR}
-\label{sec:pdr}
-
-% intro
-
-% PDR periodicity/patterns
-\lorem
-
-\begin{figure}
-    \centering
-    \includegraphics[width=\columnwidth]{periodic_pdr}
-    \caption{The PDR when node 60-08-d5 sends data to 60-03-82 over a week.}
-    \label{fig:periodic_pdr}
-\end{figure}
-
-% PDR and distance
-
-\lorem
-
-\begin{figure}
-    \centering
-    \includegraphics[width=\columnwidth]{pdr_dist}
-    \caption{The relation between PDR and distance. No pattern or trend are visually identifiable.}
-    \label{fig:pdr_dist}
+    \includegraphics[width=\columnwidth]{waterfall}
+    \caption{The PDR/RSSI waterfall}
+    \label{fig:waterfall}
 \end{figure}
 
 %==============================================================================
@@ -277,20 +237,24 @@ This variation is low considering that we have 15~min sampling period.
 
 \begin{figure}
     \centering
-    \includegraphics[width=\columnwidth]{fake}
+    \includegraphics[width=\columnwidth]{net_churn}
     \caption{Network churn here}
     \label{fig:net_churn}
 \end{figure}
 
-% network load distribution
+%==============================================================================
+\section{Charge}
+\label{sec:charge}
+
+% charge expectation
 
 \lorem
 
 \begin{figure}
     \centering
-    \includegraphics[width=\columnwidth]{fake}
-    \caption{Load distribution here}
-    \label{fig:net_flows}
+    \includegraphics[width=\columnwidth]{stats_charge}
+    \caption{The reliability stats here}
+    \label{fig:stats_charge}
 \end{figure}
 
 %==============================================================================
@@ -303,30 +267,10 @@ This variation is low considering that we have 15~min sampling period.
 
 \begin{figure}
     \centering
-    \includegraphics[width=\columnwidth]{fake}
-    \caption{The RSSI value of node 0f-66 as received by mote 03-82 over a week.}
-    \label{fig:reliability}
+    \includegraphics[width=\columnwidth]{stats_reliability}
+    \caption{The reliability stats here}
+    \label{fig:stats_reliability}
 \end{figure}
-
-%==============================================================================
-\section{Technology Feedbacks}
-\label{sec:technology}
-\keoma{is this section relevant ?}
-% intro (why is this section relevant)
-
-\lorem
-
-% SOL
-
-\lorem
-
-% database
-
-\lorem
-
-% grafana
-
-\lorem
 
 %==============================================================================
 \section{Conclusion}
