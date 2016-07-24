@@ -120,7 +120,7 @@ During the second stage, we will introduce additional sensors such as air temper
 
 We use four types of \smip devices to form the low-power wireless network.
 The DC9018 with external antenna and the DC9003 with chip antenna are deployed inside the orchard.
-Longe-range modes \thomas{To replace with exact name} are deployed outside the orchards to connect the network with the DC2274 device that is the gateway.
+Longe-range modes \keoma{@thomas: could you replace with exact name} are deployed outside the orchards to connect the network with the DC2274 device that is the gateway.
 
 % the technology
 
@@ -303,10 +303,25 @@ In other words, for 1000 packets sent, 983 are received in average.
 \end{figure}
 
 %==============================================================================
-\section{Network Churn}
-\label{sec:topology}
+\section{Network Stability}
+\label{sec:net_stability}
 
-As PDR
+% description
+
+The nodes in the network form a Destination Oriented Direct Acyclic Graph (DODAG) oriented toward the gateway (i.e the DAG root).
+Each node maintains a list of neighbors, with which they communicate or not, and dynamically change their routes depending on link quality. \keoma{@thomas:is it true ? or they use other metrics ?}
+When reliability is high the network topology stay stable and the nodes use the same neighbors.
+When the reliability decreases, nodes select other neighbors, making the network graph to change.
+Instability in the network increases the signaling traffic to reconstruct the routes and introduce more bandwidth and energy consumption.
+
+%
+
+To study the network stability we use the \textit{path\_delete} and \textit{path\_create} event messages.
+Those messages are sent every time a path with a neighbor is deleted or created responsively.
+Here a path denotes a layer 4 association between two nodes.
+Fig.\ref{fig:net_churn} shows the number of events message per hour as well as the total number of links per hour over a two-weeks period.
+We can see that the number of links stay close to 35 for the entire period of time.
+The number of path\_create and path\_delete is also kept low.
 
 \begin{figure}
     \centering
@@ -319,14 +334,24 @@ As PDR
 \section{Charge}
 \label{sec:charge}
 
-% charge expectation
+% description
 
-\lorem
+Each device is powered by a pair of AA battery (Energizer L-91) with a charge of approximately 2200mAh.
+The charge is measured by a build in sensor inside the \smip board. \keoma{@thomas: could you give me more details}
+
+%
+
+Fig.\ref{fig:stats_charge} shows the device charge statistics over a 4-month period.
+Every node is crucial in this application as it is connected to multiple sensors and represents one part of the orchard that could be prone to frost.
+We thus consider the network lifetime as the time when the first node runs out of battery.
+The node with the minimal amount of day left is node b0-00-cc, that is one of the long-range node that is use to link up the orchard motes to the network gateway.
+It is logical that this node spend more energy than the others as all the traffic passes through it~\ref{fig:map}.
+Node b0-00-cc as thus a lifetime of 1218 days, that is above 3 years lifetime.
 
 \begin{figure}
     \centering
     \includegraphics[width=\columnwidth]{stats_charge}
-    \caption{The charge stats here}
+    \caption{The charge statistics over a 4-month period.}
     \label{fig:stats_charge}
 \end{figure}
 
