@@ -124,101 +124,81 @@ Longe-range modes \keoma{@thomas: could you replace with exact name} are deploye
 
 % the technology
 
-The \smip motes are based on the IEEE 802.15.4e standard~\cite{std_ieee802154e} that includes a channel hopping mechanism to reduce the impact of multipath fading.
+The \smip motes are based on the IEEE 802.15.4e standard~\cite{std_ieee802154e} that includes a channel hopping mechanism to reduce the impact of multipath fading and external interferences.
 Channel hopping exploit the frequency diversity to reduce the probability of interferences and improve link reliability.
 This mechanism show good results in the Wireless Sensor Network (WSN) context~\cite{watteyne2010mitigating, watteyne2009reliability} and allows to achieve high reliability while saving energy.
 
 % the data
 
-Each mote produce a temperature value every 30 seconds and network statistics, called ``health-reports'', every 5~minutes.
-In 3~months, we gathered more than 2M~temperature value, and more than 180K~network statistics.
-The health reports produced by any mote contain information about the mote itself and also about its neighbors.
-%65184 HR_DEVICE, 63245 HR_DISCOVERED and 50285 HR_NEIGHBORS
-
+Each mote produce a temperature value every 30 seconds and network statistics every 5~minutes.
+In 4~months, we gathered more than 2M~temperature values, and more than 350K~network statistics.
 
 % the goal of this paper
 
-The goal of this paper is to present the first feedbacks we have from the 3-month-old project and the lessons we learned from deploying WSN in real environment.
+The goal of this paper is to present the first feedbacks we have from the 4-month-old project and the lessons we learned from deploying WSN in real environment.
 This paper makes the following contributions:
 \begin{itemize}
     \item{We analyse the link asymmetry and show that a link can be considered symmetrical in certain conditions}
-    \item{}
 \end{itemize}
-
 
 % paper organisation
 
 The remainder of this paper is organized as follows.
 Section~\ref{sec:collected} gives an in-depth description of the data we collect and their quantity.
-Sections~\ref{sec:symmetry} to \ref{sec:charge} describes the different analysis we performed on RSSI, PDR, distance and charge.
+Section~\ref{sec:analysis} describes the different analysis we performed on link asymmetry and stability, metric relations and energy consumption.
 Finally, Section~\ref{sec:conclusion} concludes this paper and discusses further improvements.
 
 %==============================================================================
-\section{Collected Data}
+\section{Data and Context}
 \label{sec:collected}
+
+%------------------------------------------------------------------------------
+\subsection{Collected Data}
 
 % health report description
 
-Each device in the network produce both sensor data and network statistics.
+Each device in the network produces both sensor data and network statistics.
 Network statistics can be separated in \textbf{Events} and \textbf{Health Reports} messages.
-The Events messages are non periodic information triggered for instance when a node join the network or when a link (layer 2) is created/deleted.
+The Events messages are non periodic information triggered when a node join/leave the network or when a link (layer 2) is created/deleted.
 The Health Report (HR) message are sent periodically and provide counters and statistics to assess the overall network health.
-There are three types of HR:
-\begin{itemize}
-  \item HR\_DEVICE give information about the mote itself
-  \item HR\_NEIGHBORS give information about the mote active neighbors
-  \item HR\_DISCOVERED give information about the mote potential neighbors
-\end{itemize}
+There are three types of HR: HR\_DEVICE, HR\_DISCOVERED, and HR\_NEIGHBORS.
+\textbf{HR\_DEVICE} messages give information about the mote itself such as is current battery voltage, its internal temperature, and the total number of messages it has send.
+\textbf{HR\_NEIGHBORS} messages give information about the mote active neighbors that are the neighbors with which it communicates.
+For each of this neighbors, the HR\_NEIGHBOR message provide information such as Receive Signal Strength Indicator (RSSI), the number of successfully transmitted messages, and the number of messages it received from that neighbor.
+\textbf{HR\_DISCOVERED} messages give information about the mote potential neighbors such as RSSI value.
 Each device sends one type of Health Report every 5~min making the complete set of Health Report generated every 15~min.
 
-%------------------------------------------------------------------------------
-\subsection{HR\_DEVICE}
-
-\keoma{should we actually put all the technical details here ?}
-An HR\_DEVICE message contains the following fields:\\
-\begin{tabular}{l|p{6cm}}
-    field name      & description\\
-    \hline
-    charge          & node charge in mC\\
-    queueOcc        & mean and max queue occupancy.\\
-    temperature     & built-in temperature sensor value in C\\
-    batteryVoltage  & node battery voltage in mV\\
-    numTxOk         & number of packets sent from NET to MAC\\
-    numTxFail       & number of packets not sent due to congestion or failure to allocate a packet\\
-    numRxOk         & number of packets received\\
-    numRxLost       & number of packets lost (discarded by NET layer due to misc errors)\\
-    numMacDropped   & number of packets dropped by MAC (due to retry count or age or no route)\\
-    numTxBad        & transmit failure counter for bad link\\
-    badLinkFrameId  & frame id of link with the worst performance over the last health report interval\\
-    badLinkSlot     & slot of link with the worst performance over the last health report interval\\
-    badLinkOffset   & offset of link with the worst performance over the last health report interval\\
-\end{tabular}
-
-% HR_DISCOVERED
-
-\lorem
-
-% HR_NEIGHBORS
-
-\lorem
-
-% dataset
+% data quantities
 
 Over a period of 4 months, we collected a total of:
 \begin{itemize}
-    \item 140897 HR\_NEIGHBORS messages\\
-    \item 87737 HR\_DISCOVERED messages\\
-    \item 132758 HR\_DEVICE messages\\
+    \item 140897 HR\_NEIGHBORS messages
+    \item 87737 HR\_DISCOVERED messages
+    \item 132758 HR\_DEVICE messages
+    \item 4098 path\_create messages
+    \item 3653 path\_delete messages
+    \item 133 mote\_create messages
 \end{itemize}
 
-%==============================================================================
-\section{Link Symmetry}
-\label{sec:symmetry}
+%------------------------------------------------------------------------------
+\subsection{Context}
 
+The wireless network is deployed inside an orchard located in the country-side, around 45~km for Mendoza in Argentina.
+Inside the field no other electronic device than the ones from the sensor network are present.
+Local farmers work inside the field with heavy machinery approximately every 20 days for a period of one to two hours.
+In the region the temperature can raise from -9C in winter to +38C in Summer.
+
+%==============================================================================
+\section{Analysis}
+\label{analysis}
+
+%------------------------------------------------------------------------------
+\subsection{Link Symmetry}
+\label{sec:symmetry}
 
 % RSSI expectations
 
-The Received Signal Strength Indication (RSSI) values can be retrieved from both active neighbors and discovered neighbors Health Reports, thus every 15~min for each pair of device.
+The RSSI values can be retrieved from both active neighbors and discovered neighbors Health Reports, thus every 15~min for each pair of device.
 Those RSSI values are averaged values over the 16 channels defined in the IEEE 802.15.4 standard~\cite{std_ieee802154_2011}.
 In the rest of that paper we will use RSSI to denote the average RSSI over the 16 channels.
 
@@ -247,8 +227,10 @@ Note that the RSSI is an averaged value over the different channels.
 
 
 %------------------------------------------------------------------------------
-\section{Link Stability}
-\label{sec:link_stability}
+\subsection{RSSI vs Distance}
+\label{sec:rssi_distance}
+
+\lorem
 
 \lorem
 
@@ -260,7 +242,7 @@ Note that the RSSI is an averaged value over the different channels.
 \end{figure}
 
 %------------------------------------------------------------------------------
-\subsection{RSSI Threshold}
+\subsection{RSSI vs PDR}
 
 % sample presentation
 
@@ -284,13 +266,13 @@ When the RSSI values are below that threshold, PDR values remain near 100\%, ind
     \label{fig:waterfall}
 \end{figure}
 
-%==============================================================================
-\section{Reliability}
-\label{sec:reliability}
+%------------------------------------------------------------------------------
+\subsection{Link Reliability}
+\label{sec:link_reliability}
 
 % reliability expectation
 
-Channel Hopping greatly improves the PDR \cite{watteyne2010mitigating}.
+Channel Hopping greatly improves the PDR~\cite{watteyne2010mitigating}.
 Fig.\ref{fig:stats_reliability} presents the PDR statistics for each mote over the same sample as presented in the previous section.
 The global mean PDR over the entire sample is 0.983\% with a standard deviation of 0.045.
 In other words, for 1000 packets sent, 983 are received in average.
@@ -302,8 +284,8 @@ In other words, for 1000 packets sent, 983 are received in average.
     \label{fig:stats_reliability}
 \end{figure}
 
-%==============================================================================
-\section{Network Stability}
+%------------------------------------------------------------------------------
+\subsection{Network Stability}
 \label{sec:net_stability}
 
 % description
@@ -314,7 +296,7 @@ When reliability is high the network topology stay stable and the nodes use the 
 When the reliability decreases, nodes select other neighbors, making the network graph to change.
 Instability in the network increases the signaling traffic to reconstruct the routes and introduce more bandwidth and energy consumption.
 
-%
+% results
 
 To study the network stability we use the \textit{path\_delete} and \textit{path\_create} event messages.
 Those messages are sent every time a path with a neighbor is deleted or created responsively.
@@ -330,19 +312,19 @@ The number of path\_create and path\_delete is also kept low.
     \label{fig:net_churn}
 \end{figure}
 
-%==============================================================================
+%------------------------------------------------------------------------------
 \section{Charge}
 \label{sec:charge}
 
 % description
 
 Each device is powered by a pair of AA battery (Energizer L-91) with a charge of approximately 2200mAh.
-The charge is measured by a build in sensor inside the \smip board. \keoma{@thomas: could you give me more details}
+The charge is measured by a built-in sensor inside the \smip board. \keoma{@thomas: could you give me more details?}
 
-%
+% results
 
 Fig.\ref{fig:stats_charge} shows the device charge statistics over a 4-month period.
-Every node is crucial in this application as it is connected to multiple sensors and represents one part of the orchard that could be prone to frost.
+Every node is crucial in this application as each mode is connected to multiple sensors and represents one part of the orchard that could be prone to frost.
 We thus consider the network lifetime as the time when the first node runs out of battery.
 The node with the minimal amount of day left is node b0-00-cc, that is one of the long-range node that is use to link up the orchard motes to the network gateway.
 It is logical that this node spend more energy than the others as all the traffic passes through it, see Fig.~\ref{fig:map}.
