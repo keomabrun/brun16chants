@@ -141,7 +141,7 @@ The health reports produced by any mote contain information about the mote itsel
 The goal of this paper is to present the first feedbacks we have from the 3-month-old project and the lessons we learned from deploying WSN in real environment.
 This paper makes the following contributions:
 \begin{itemize}
-    \item{We analyse the link asymmetry and show that a link can be consider symmetrical in certain conditions}
+    \item{We analyse the link asymmetry and show that a link can be considered symmetrical in certain conditions}
     \item{}
 \end{itemize}
 
@@ -232,11 +232,11 @@ Those movements could create internal interferences such as multipath fading.
 
 A common assumption is to assume that a layer 2 link between two identical wireless nodes is asymmetrical.
 We looked at the links statistics between the 18th of June and the 4th of July (16 days) and analysed the difference between the RSSI values.
-The sample contains 411132 HR\_NEIGHBORS messages and concern 14 nodes with same hardware (DC9003).
-During that period, 21 different bidirectional links are active with at least 50 transmissions.
-For each of those links, we compute the RSSI difference for the two directions of the link (i.e from A to B and from B to A) and present the results in Fig.~\ref{fig:tab_symmetry}).
+The sample contains 411132 HR\_NEIGHBORS messages and concerns 14 nodes with the same hardware (DC9003).
+During that period, 21 different bidirectional links are active with at least 250 transmissions for each link.
+For each of those links, we compute the RSSI difference between the two directions of the link (i.e from A to B and from B to A) and present the results in Fig.~\ref{fig:tab_symmetry}).
 The very low RSSI difference shows that the links are very symmetrical.
-Note that the RSSI is an average over the different channels.
+Note that the RSSI is an averaged value over the different channels.
 
 \begin{figure}
     \centering
@@ -345,8 +345,8 @@ Fig.\ref{fig:stats_charge} shows the device charge statistics over a 4-month per
 Every node is crucial in this application as it is connected to multiple sensors and represents one part of the orchard that could be prone to frost.
 We thus consider the network lifetime as the time when the first node runs out of battery.
 The node with the minimal amount of day left is node b0-00-cc, that is one of the long-range node that is use to link up the orchard motes to the network gateway.
-It is logical that this node spend more energy than the others as all the traffic passes through it~\ref{fig:map}.
-Node b0-00-cc as thus a lifetime of 1218 days, that is above 3 years lifetime.
+It is logical that this node spend more energy than the others as all the traffic passes through it, see Fig.~\ref{fig:map}.
+Node b0-00-cc has 1218 days left, that is above 3 years lifetime.
 
 \begin{figure}
     \centering
