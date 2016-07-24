@@ -263,21 +263,32 @@ When the RSSI values are below that threshold, PDR values remain near 100\%, ind
 \begin{figure}
     \centering
     \includegraphics[width=\columnwidth]{waterfall}
-    \caption{The PDR/RSSI waterfall}
+    \caption{The PDR/RSSI waterfall. After the -85dBm RSSI threshold, PDR values significantly drop.}
     \label{fig:waterfall}
 \end{figure}
 
 %==============================================================================
-\section{Topology}
+\section{Reliability}
+\label{sec:reliability}
+
+% reliability expectation
+
+Channel Hopping greatly improves the PDR \cite{watteyne2010mitigating}.
+Fig.\ref{fig:stats_reliability} presents the PDR statistics over the same sample as presented in the previous section.
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\columnwidth]{stats_reliability}
+    \caption{The reliability stats here}
+    \label{fig:stats_reliability}
+\end{figure}
+
+%==============================================================================
+\section{Network Churn}
 \label{sec:topology}
 
-% topology expectations
-
-\lorem
-
-% what we found
-
-\lorem
+As PDR
 
 \begin{figure}
     \centering
@@ -301,20 +312,6 @@ When the RSSI values are below that threshold, PDR values remain near 100\%, ind
     \label{fig:stats_charge}
 \end{figure}
 
-%==============================================================================
-\section{Reliability}
-\label{sec:reliability}
-
-% reliability expectation
-
-\lorem
-
-\begin{figure}
-    \centering
-    \includegraphics[width=\columnwidth]{stats_reliability}
-    \caption{The reliability stats here}
-    \label{fig:stats_reliability}
-\end{figure}
 
 %==============================================================================
 \section{Conclusion}
