@@ -97,11 +97,11 @@ During the second stage, we will introduce additional sensors such as air temper
          \hline
            & 1 & 2 & 3 & 4\\
          \hline
-         1 & 30-60-ef* & 3f-f8-20 & 58-32-36* & 60-03-82 \\
-         2 & 3f-fe-87  & 3f-fe-88 & 60-06-0f  & 60-08-d5 \\
-         3 & 60-05-5f  & 60-06-27 & 60-05-69  & 60-01-f8 \\
-         4 & 60-06-ec  & 60-05-ab & 60-02-4b  & 60-02-1b \\
-         5 & 38-0f-66  & 60-05-78 &           &          \\
+         1 & \tt{30-60-ef*} & \tt{3f-f8-20} & \tt{58-32-36*} & \tt{60-03-82} \\
+         2 & \tt{3f-fe-87}  & \tt{3f-fe-88} & \tt{60-06-0f}  & \tt{60-08-d5} \\
+         3 & \tt{60-05-5f}  & \tt{60-06-27} & \tt{60-05-69}  & \tt{60-01-f8} \\
+         4 & \tt{60-06-ec}  & \tt{60-05-ab} & \tt{60-02-4b}  & \tt{60-02-1b} \\
+         5 & \tt{38-0f-66}  & \tt{60-05-78} &                &               \\
          \hline
     \end{tabular}
     \caption{The MAC addresses of the motes inside the orchard (last 3 bytes). Refer to numbers displayed on the map. (*) DC9018 node with external antenna.}
@@ -321,37 +321,37 @@ The charge is measured by a built-in sensor inside the \smip board. \keoma{@thom
 Fig.\ref{tab:stats_charge} shows the device charge statistics over a 4-month period.
 Every node is crucial in this application as each mode is connected to multiple sensors and represents one part of the orchard that could be prone to frost.
 We thus consider the network lifetime as the time when the first node runs out of battery.
-The node with the minimal amount of days left is node b0-00-cc, that is one of the long-range node that is use to link up the orchard motes to the network gateway.
+The node with the minimal amount of days left is node \tt{b0-00-cc}, that is one of the long-range node that is use to link up the orchard motes to the network gateway.
 It is logical that this node spend more energy than the others as all the traffic passes through it, see Fig.~\ref{fig:map}.
-Node b0-00-cc has 1218 days left, that is above 3 years lifetime.
-The node with the maximal amount of days left is node 60-02-4b.
+Node \tt{b0-00-cc} has 1218 days left, that is above 3 years lifetime.
+The node with the maximal amount of days left is node \tt{60-02-4b}.
 From~Fig.\ref{fig:map}, we can see that the node has no child and thus, do not retransmit any data from its neighbors.
 There is a difference of 3513 days between the minimal and maximal lifetime.
 
 \begin{table}
   \begin{tabular}{|c|r|r|}
      \hline
-     mac                     & charge\_consumed & lifetime\\
+     mac            & charge consumed (C) & lifetime (month)\\
      \hline
-     00-17-0d-00-00-30-60-ef & 227846 (2\%)     & 3889\\
-     00-17-0d-00-00-38-0f-66 & 252356 (2\%)     & 3512\\
-     00-17-0d-00-00-3f-f8-20 & 291312 (2\%)     & 3042\\
-     00-17-0d-00-00-3f-fe-87 & 392606 (3\%)     & 2257\\
-     00-17-0d-00-00-3f-fe-88 & 458459 (4\%)     & 1932\\
-     00-17-0d-00-00-58-32-36 & 327634 (3\%)     & 2704\\
-     00-17-0d-00-00-60-01-f8 & 252454 (2\%)     & 3510\\
-     00-17-0d-00-00-60-02-1b & 222253 (2\%)     & 3987\\
-     00-17-0d-00-00-60-02-4b & 146068 (1\%)     & 6067\\
-     00-17-0d-00-00-60-03-82 & 494841 (4\%)     & 1790\\
-     00-17-0d-00-00-60-05-5f & 274502 (2\%)     & 3228\\
-     00-17-0d-00-00-60-05-69 & 437136 (4\%)     & 2027\\
-     00-17-0d-00-00-60-05-78 & 304145 (2\%)     & 2914\\
-     00-17-0d-00-00-60-05-ab & 284764 (2\%)     & 3112\\
-     00-17-0d-00-00-60-06-27 & 321879 (3\%)     & 2753\\
-     00-17-0d-00-00-60-08-d5 & 263120 (2\%)     & 3368\\
-     00-17-0d-00-00-b0-00-87 & 199626 (1\%)     & 4439\\
-     00-17-0d-00-00-b0-00-aa & 544439 (5\%)     & 1627\\
-     00-17-0d-00-00-b0-00-cc & 567232 (5\%)     & 1562\\
+     \tt{30-60-ef}  & 227847 (2.2\%)  & 130\\
+     \tt{38-0f-66}  & 252356 (2.5\%)  & 117\\
+     \tt{3f-f8-20}  & 291312 (2.9\%)  & 101\\
+     \tt{3f-fe-87}  & 392606 (3.9\%)  & 75 \\
+     \tt{3f-fe-88}  & 458459 (4.5\%)  & 64 \\
+     \tt{58-32-36}  & 327634 (3.2\%)  & 90 \\
+     \tt{60-01-f8}  & 252454 (2.5\%)  & 117\\
+     \tt{60-02-1b}  & 222253 (2.2\%)  & 133\\
+     \tt{60-02-4b}  & 146068 (1.4\%)  & 202\\
+     \tt{60-03-82}  & 494841 (4.9\%)  & 60 \\
+     \tt{60-05-5f}  & 274502 (2.7\%)  & 108\\
+     \tt{60-05-69}  & 437136 (4.3\%)  & 68 \\
+     \tt{60-05-78}  & 304145 (3.0\%)  & 97 \\
+     \tt{60-05-ab}  & 284764 (2.8\%)  & 104\\
+     \tt{60-06-27}  & 321879 (3.2\%)  & 92 \\
+     \tt{60-08-d5}  & 263120 (2.6\%)  & 112\\
+     \tt{b0-00-87}  & 199626 (2.0\%)  & 148\\
+     \tt{b0-00-aa}  & 544439 (5.4\%)  & 54 \\
+     \tt{b0-00-cc}  & 567232 (5.6\%)  & 52 \\
      \hline
   \end{tabular}
   \caption{The charge statistics.}
