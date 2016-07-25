@@ -192,122 +192,6 @@ In the region the temperature can raise from -9C in winter to +38C in Summer.
 \label{sec:analysis}
 
 %------------------------------------------------------------------------------
-\subsection{Link Symmetry}
-\label{sec:symmetry}
-
-% RSSI expectations
-
-The RSSI values can be retrieved from both active neighbors and discovered neighbors Health Reports, thus every 15~min for each pair of device.
-Those RSSI values are averaged values over the 16 channels defined in the IEEE 802.15.4 standard~\cite{std_ieee802154_2011}.
-In the rest of that paper we will use RSSI to denote the average RSSI over the 16 channels.
-
-% environment
-
-The peach orchard is located in a rural area that is not exposed to high traffic on the ISM band so we do not expect important external interferences.
-Heavy machinery is used inside the orchard by farmers approximately every 20 days and during a period of one to two hours.
-Those movements could create internal interferences such as multipath fading.
-
-% symmetry analysis
-
-A common assumption is to assume that a layer 2 link between two identical wireless nodes is asymmetrical.
-We looked at the links statistics between the 18th of June and the 4th of July (16 days) and analysed the difference between the RSSI values.
-The sample contains 411132 HR\_NEIGHBORS messages and concerns 14 nodes with the same hardware (DC9003).
-During that period, 21 different bidirectional links are active with at least 250 transmissions for each link.
-For each of those links, we compute the RSSI difference between the two directions of the link (i.e from A to B and from B to A) and present the results in Fig.~\ref{fig:tab_symmetry}).
-The very low RSSI difference shows that the links are very symmetrical.
-Note that the RSSI is an averaged value over the different channels.
-
-\begin{figure}
-    \centering
-    \includegraphics[width=\columnwidth]{sym_plot}
-    \caption{The different active links between 2016-06-18 and 2016-06-25}
-    \label{fig:tab_symmetry}
-\end{figure}
-
-
-%------------------------------------------------------------------------------
-\subsection{RSSI vs Distance}
-\label{sec:rssi_distance}
-
-\lorem
-
-\lorem
-
-\begin{figure}
-    \centering
-    \includegraphics[width=\columnwidth]{pister_hack}
-    \caption{The famous Pister-Hack model here}
-    \label{fig:pister_hack}
-\end{figure}
-
-%------------------------------------------------------------------------------
-\subsection{RSSI vs PDR}
-
-% sample presentation
-
-Due to the inherent physical unreliability of the radio medium, it is impossible to know if a future transmission will be successful or not.
-The Packet Delivery Ratio (PDR) is the proportion of successful transmissions over the total number of transmissions.
-Over a period of 4 months, 140897 HR\_NEIGHBORS messages were collected.
-Nodes maintain a list of potential neighbors with which they do not communicate with.
-We removed the portion of neighbors with no transmission (237252 messages) and kept only the DC9003 motes, resulting into a total of 125103 messages (approx. 27\%).
-
-% Waterfall
-
-In Fig.\ref{fig:waterfall}, we show the so-called \textit{waterfall plot}, displaying the RSSI values against PDR values over the 4-months period.
-A clear threshold appears when the RSSI values go below -85dBm.
-For RSSI values above that threshold, the PDR drastically decreases implying retransmission.
-When the RSSI values are below that threshold, PDR values remain near 100\%, inducing successful transmissions.
-
-\begin{figure}
-    \centering
-    \includegraphics[width=\columnwidth]{waterfall}
-    \caption{The PDR/RSSI waterfall. After the -85dBm RSSI threshold, PDR values significantly drop.}
-    \label{fig:waterfall}
-\end{figure}
-
-%------------------------------------------------------------------------------
-\subsection{Network Reliability}
-\label{sec:net_reliability}
-
-\begin{table}
-    \begin{tabular}{|l|l|}
-        \hline
-        reliability & 100\% (Arrived/Lost:   693844/0)\\ \hline
-        stability   & 95\% (Transmit/Fails: 4405569/258778)\\ \hline
-        latency     & 700 msec\\
-        \hline
-    \end{tabular}
-\end{table}
-
-%------------------------------------------------------------------------------
-\subsection{Network Stability}
-\label{sec:net_stability}
-
-% description
-
-The nodes in the network form a Destination Oriented Direct Acyclic Graph (DODAG) oriented toward the gateway (i.e the DAG root).
-Each node maintains a list of neighbors, with which they communicate or not, and dynamically change their routes depending on link quality. \keoma{@thomas:is it true ? or they use other metrics ?}
-When reliability is high the network topology stay stable and the nodes use the same neighbors.
-When the reliability decreases, nodes select other neighbors, making the network graph to change.
-Instability in the network increases the signaling traffic to reconstruct the routes and introduce more bandwidth and energy consumption.
-
-% results
-
-To study the network stability we use the \textit{path\_delete} and \textit{path\_create} event messages.
-Those messages are sent every time a path with a neighbor is deleted or created responsively.
-Here a path denotes a layer 4 association between two nodes.
-Fig.\ref{fig:net_churn} shows the number of events message per hour as well as the total number of links per hour over a two-weeks period.
-We can see that the number of links stay close to 35 for the entire period of time.
-The number of path\_create and path\_delete is also kept low.
-
-\begin{figure}
-    \centering
-    \includegraphics[width=\columnwidth]{net_churn}
-    \caption{Network churn here}
-    \label{fig:net_churn}
-\end{figure}
-
-%------------------------------------------------------------------------------
 \section{Charge}
 \label{sec:charge}
 
@@ -357,6 +241,122 @@ There is a difference of 3513 days between the minimal and maximal lifetime.
   \caption{The charge statistics.}
   \label{tab:stats_charge}
 \end{table}
+
+%------------------------------------------------------------------------------
+\subsection{RSSI vs Distance}
+\label{sec:rssi_distance}
+
+\lorem
+
+\lorem
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\columnwidth]{pister_hack}
+    \caption{The famous Pister-Hack model here}
+    \label{fig:pister_hack}
+\end{figure}
+
+%------------------------------------------------------------------------------
+\subsection{Network Reliability}
+\label{sec:net_reliability}
+
+\begin{table}
+    \begin{tabular}{|l|l|}
+        \hline
+        reliability & 100\% (Arrived/Lost:   693844/0)\\ \hline
+        stability   & 95\% (Transmit/Fails: 4405569/258778)\\ \hline
+        latency     & 700 msec\\
+        \hline
+    \end{tabular}
+\end{table}
+
+%------------------------------------------------------------------------------
+\subsection{RSSI vs PDR}
+
+% sample presentation
+
+Due to the inherent physical unreliability of the radio medium, it is impossible to know if a future transmission will be successful or not.
+The Packet Delivery Ratio (PDR) is the proportion of successful transmissions over the total number of transmissions.
+Over a period of 4 months, 140897 HR\_NEIGHBORS messages were collected.
+Nodes maintain a list of potential neighbors with which they do not communicate with.
+We removed the portion of neighbors with no transmission (237252 messages) and kept only the DC9003 motes, resulting into a total of 125103 messages (approx. 27\%).
+
+% Waterfall
+
+In Fig.\ref{fig:waterfall}, we show the so-called \textit{waterfall plot}, displaying the RSSI values against PDR values over the 4-months period.
+A clear threshold appears when the RSSI values go below -85dBm.
+For RSSI values above that threshold, the PDR drastically decreases implying retransmission.
+When the RSSI values are below that threshold, PDR values remain near 100\%, inducing successful transmissions.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\columnwidth]{waterfall}
+    \caption{The PDR/RSSI waterfall. After the -85dBm RSSI threshold, PDR values significantly drop.}
+    \label{fig:waterfall}
+\end{figure}
+
+%------------------------------------------------------------------------------
+\subsection{Link Symmetry}
+\label{sec:symmetry}
+
+% RSSI expectations
+
+The RSSI values can be retrieved from both active neighbors and discovered neighbors Health Reports, thus every 15~min for each pair of device.
+Those RSSI values are averaged values over the 16 channels defined in the IEEE 802.15.4 standard~\cite{std_ieee802154_2011}.
+In the rest of that paper we will use RSSI to denote the average RSSI over the 16 channels.
+
+% environment
+
+The peach orchard is located in a rural area that is not exposed to high traffic on the ISM band so we do not expect important external interferences.
+Heavy machinery is used inside the orchard by farmers approximately every 20 days and during a period of one to two hours.
+Those movements could create internal interferences such as multipath fading.
+
+% symmetry analysis
+
+A common assumption is to assume that a layer 2 link between two identical wireless nodes is asymmetrical.
+We looked at the links statistics between the 18th of June and the 4th of July (16 days) and analysed the difference between the RSSI values.
+The sample contains 411132 HR\_NEIGHBORS messages and concerns 14 nodes with the same hardware (DC9003).
+During that period, 21 different bidirectional links are active with at least 250 transmissions for each link.
+For each of those links, we compute the RSSI difference between the two directions of the link (i.e from A to B and from B to A) and present the results in Fig.~\ref{fig:tab_symmetry}).
+The very low RSSI difference shows that the links are very symmetrical.
+Note that the RSSI is an averaged value over the different channels.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\columnwidth]{sym_plot}
+    \caption{The different active links between 2016-06-18 and 2016-06-25}
+    \label{fig:tab_symmetry}
+\end{figure}
+
+%------------------------------------------------------------------------------
+\subsection{Network Stability}
+\label{sec:net_stability}
+
+% description
+
+The nodes in the network form a Destination Oriented Direct Acyclic Graph (DODAG) oriented toward the gateway (i.e the DAG root).
+Each node maintains a list of neighbors, with which they communicate or not, and dynamically change their routes depending on link quality. \keoma{@thomas:is it true ? or they use other metrics ?}
+When reliability is high the network topology stay stable and the nodes use the same neighbors.
+When the reliability decreases, nodes select other neighbors, making the network graph to change.
+Instability in the network increases the signaling traffic to reconstruct the routes and introduce more bandwidth and energy consumption.
+
+% results
+
+To study the network stability we use the \textit{path\_delete} and \textit{path\_create} event messages.
+Those messages are sent every time a path with a neighbor is deleted or created responsively.
+Here a path denotes a layer 4 association between two nodes.
+Fig.\ref{fig:net_churn} shows the number of events message per hour as well as the total number of links per hour over a two-weeks period.
+We can see that the number of links stay close to 35 for the entire period of time.
+The number of path\_create and path\_delete is also kept low.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\columnwidth]{net_churn}
+    \caption{Network churn here}
+    \label{fig:net_churn}
+\end{figure}
+
 
 %==============================================================================
 \section{Conclusion}
