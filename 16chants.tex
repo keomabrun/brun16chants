@@ -1,12 +1,13 @@
 \documentclass{sig-alternate}
 
 \usepackage{amsmath}
+\usepackage{graphics}
 \usepackage{graphicx}
 \usepackage{subfigure}
 \usepackage{color}
 \usepackage{xspace}
 \usepackage{url}
- \usepackage[utf8]{inputenc}
+\usepackage[utf8]{inputenc}
 
  % lorem
 \newcommand{\lorem}               {\textcolor{green}{Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.}}
@@ -190,7 +191,7 @@ In the region the temperature can raise from -9C in winter to +38C in Summer.
 
 %==============================================================================
 \section{Analysis}
-\label{analysis}
+\label{sec:analysis}
 
 %------------------------------------------------------------------------------
 \subsection{Link Symmetry}
@@ -323,7 +324,7 @@ The charge is measured by a built-in sensor inside the \smip board. \keoma{@thom
 
 % results
 
-Fig.\ref{fig:stats_charge} shows the device charge statistics over a 4-month period.
+Fig.\ref{tab:stats_charge} shows the device charge statistics over a 4-month period.
 Every node is crucial in this application as each mode is connected to multiple sensors and represents one part of the orchard that could be prone to frost.
 We thus consider the network lifetime as the time when the first node runs out of battery.
 The node with the minimal amount of days left is node b0-00-cc, that is one of the long-range node that is use to link up the orchard motes to the network gateway.
@@ -333,13 +334,35 @@ The node with the maximal amount of days left is node 60-02-4b.
 From~Fig.\ref{fig:map}, we can see that the node has no child and thus, do not retransmit any data from its neighbors.
 There is a difference of 3513 days between the minimal and maximal lifetime.
 
-\begin{figure}
-    \centering
-    \includegraphics[width=\columnwidth]{stats_charge}
-    \caption{The charge statistics over a 4-month period.}
-    \label{fig:stats_charge}
-\end{figure}
-
+\begin{table}
+  \begin{tabular}{|c|r|r|}
+     \hline
+     mac                     & charge\_consumed & lifetime\\
+     \hline
+     00-17-0d-00-00-30-60-ef & 227846 (2\%)     & 3889\\
+     00-17-0d-00-00-38-0f-66 & 252356 (2\%)     & 3512\\
+     00-17-0d-00-00-3f-f8-20 & 291312 (2\%)     & 3042\\
+     00-17-0d-00-00-3f-fe-87 & 392606 (3\%)     & 2257\\
+     00-17-0d-00-00-3f-fe-88 & 458459 (4\%)     & 1932\\
+     00-17-0d-00-00-58-32-36 & 327634 (3\%)     & 2704\\
+     00-17-0d-00-00-60-01-f8 & 252454 (2\%)     & 3510\\
+     00-17-0d-00-00-60-02-1b & 222253 (2\%)     & 3987\\
+     00-17-0d-00-00-60-02-4b & 146068 (1\%)     & 6067\\
+     00-17-0d-00-00-60-03-82 & 494841 (4\%)     & 1790\\
+     00-17-0d-00-00-60-05-5f & 274502 (2\%)     & 3228\\
+     00-17-0d-00-00-60-05-69 & 437136 (4\%)     & 2027\\
+     00-17-0d-00-00-60-05-78 & 304145 (2\%)     & 2914\\
+     00-17-0d-00-00-60-05-ab & 284764 (2\%)     & 3112\\
+     00-17-0d-00-00-60-06-27 & 321879 (3\%)     & 2753\\
+     00-17-0d-00-00-60-08-d5 & 263120 (2\%)     & 3368\\
+     00-17-0d-00-00-b0-00-87 & 199626 (1\%)     & 4439\\
+     00-17-0d-00-00-b0-00-aa & 544439 (5\%)     & 1627\\
+     00-17-0d-00-00-b0-00-cc & 567232 (5\%)     & 1562\\
+     \hline
+  \end{tabular}
+  \caption{The charge statistics.}
+  \label{tab:stats_charge}
+\end{table}
 
 %==============================================================================
 \section{Conclusion}
