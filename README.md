@@ -45,3 +45,7 @@ This workshop builds on the success of the ten previous CHANTS workshops, and WD
     Test and simulation tools for evaluating challenged network systems
     Configuration, management, and monitoring of challenged networks
 
+## Paper submission guidelines
+
+Submitted papers must be no longer than 6 pages, and should adhere to the standard ACM conference proceedings format. Demo proposals (to be published as part of the proceedings) must not be longer than 2 pages plus 1 page description of the precise setup and requirements (the 1-page setup description will not be published in the proceedings). Reviews will be single-blinded. Papers should neither have been published elsewhere nor being currently under review by another conference or journal.
+
