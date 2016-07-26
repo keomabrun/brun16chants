@@ -26,3 +26,5 @@
 notebooks/.ipynb_checkpoints/
 
 *.swp
+*.ps
+Thumbs.db

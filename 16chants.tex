@@ -26,7 +26,7 @@
 \graphicspath{{figures/}}
 
 \begin{document}
-\title{Lessons Learned from a Real-World Low-Power Wireless Sensor Network Deployment}
+\title{(Un)Intuitive Results from a Smart Agriculture\\Low-power Wireless Mesh Deployment}
 
 \numberofauthors{5}
 \author{
@@ -84,34 +84,35 @@ During this stage, the goal is to verify that the network fulfill its requiremen
 The location and environment of the current temperature sensors are not adequate, consequently, we do not exploit that information in this paper.
 During the second stage, we will introduce additional sensors such as air temperature at different high, air relative humidity, soil moisture and soil temperature.
 
+%======== front-page figure, do not mote
 \begin{figure}
     \centering
     \includegraphics[width=\columnwidth]{orchard}
-    \caption{The wireless motes deployed inside the orchard in Mendoza (Argentina)}
+    \caption{The wireless motes deployed in an orchard in Mendoza, Argentina.}
     \label{fig:orchard}
 \end{figure}
 
 \begin{table}
 \begin{center}
-    \begin{tabular}{ | c | c | c | c | c |}
+    \begin{tabular}{ | l | l | l | l | l |}
          \hline
-           & 1 & 2 & 3 & 4\\
+           & \multicolumn{1}{|c|}{1} & \multicolumn{1}{|c|}{2} & \multicolumn{1}{|c|}{3} & \multicolumn{1}{|c|}{4}\\
          \hline
-         1 & \tt{30-60-ef*} & \tt{3f-f8-20} & \tt{58-32-36*} & \tt{60-03-82} \\
-         2 & \tt{3f-fe-87}  & \tt{3f-fe-88} & \tt{60-06-0f}  & \tt{60-08-d5} \\
-         3 & \tt{60-05-5f}  & \tt{60-06-27} & \tt{60-05-69}  & \tt{60-01-f8} \\
-         4 & \tt{60-06-ec}  & \tt{60-05-ab} & \tt{60-02-4b}  & \tt{60-02-1b} \\
-         5 & \tt{38-0f-66}  & \tt{60-05-78} &                &               \\
+         1 & \tt{30-60-ef}$^*$ & \tt{3f-f8-20} & \tt{58-32-36}$^*$ & \tt{60-03-82} \\
+         2 & \tt{3f-fe-87}     & \tt{3f-fe-88} & \tt{60-06-0f}     & \tt{60-08-d5} \\
+         3 & \tt{60-05-5f}     & \tt{60-06-27} & \tt{60-05-69}     & \tt{60-01-f8} \\
+         4 & \tt{60-06-ec}     & \tt{60-05-ab} & \tt{60-02-4b}     & \tt{60-02-1b} \\
+         5 & \tt{38-0f-66}     & \tt{60-05-78} &                   &               \\
          \hline
     \end{tabular}
-    \caption{The MAC addresses of the motes inside the orchard (last 3 bytes). Refer to numbers displayed on the map. (*) DC9018 node with external antenna.}
+    \caption{The MAC addresses of the motes inside the orchard (last 3 bytes). Refer to numbers displayed on the map. ($^*$) DC9018 node with external antenna.}
 \end{center}
 \end{table}
 
 \begin{figure*}
     \centering
     \includegraphics[width=\textwidth]{map_annotated}
-    \caption{A map of the sensor deployed in the orchard near Mendoza (Argentina)}
+    \caption{A map of the sensor deployed in the orchard near Mendoza, Argentina.}
     \label{fig:map}
 \end{figure*}
 
@@ -215,27 +216,27 @@ There is a difference of 3513 days between the minimal and maximal lifetime.
 \begin{table}
   \begin{tabular}{|c|r|r|}
      \hline
-     mac            & charge consumed (C) & lifetime (month)\\
+     mac            & charge consumed (C) & lifetime (years)\\
      \hline
-     \tt{30-60-ef}  & 227847 (2.2\%)  & 130\\
-     \tt{38-0f-66}  & 252356 (2.5\%)  & 117\\
-     \tt{3f-f8-20}  & 291312 (2.9\%)  & 101\\
-     \tt{3f-fe-87}  & 392606 (3.9\%)  & 75 \\
-     \tt{3f-fe-88}  & 458459 (4.5\%)  & 64 \\
-     \tt{58-32-36}  & 327634 (3.2\%)  & 90 \\
-     \tt{60-01-f8}  & 252454 (2.5\%)  & 117\\
-     \tt{60-02-1b}  & 222253 (2.2\%)  & 133\\
-     \tt{60-02-4b}  & 146068 (1.4\%)  & 202\\
-     \tt{60-03-82}  & 494841 (4.9\%)  & 60 \\
-     \tt{60-05-5f}  & 274502 (2.7\%)  & 108\\
-     \tt{60-05-69}  & 437136 (4.3\%)  & 68 \\
-     \tt{60-05-78}  & 304145 (3.0\%)  & 97 \\
-     \tt{60-05-ab}  & 284764 (2.8\%)  & 104\\
-     \tt{60-06-27}  & 321879 (3.2\%)  & 92 \\
-     \tt{60-08-d5}  & 263120 (2.6\%)  & 112\\
-     \tt{b0-00-87}  & 199626 (2.0\%)  & 148\\
-     \tt{b0-00-aa}  & 544439 (5.4\%)  & 54 \\
-     \tt{b0-00-cc}  & 567232 (5.6\%)  & 52 \\
+     \tt{30-60-ef}  & 227,847 (2.2\%)      & 10.8 \\
+     \tt{38-0f-66}  & 252,356 (2.5\%)      &  9.8 \\
+     \tt{3f-f8-20}  & 291,312 (2.9\%)      &  8.4 \\
+     \tt{3f-fe-87}  & 392,606 (3.9\%)      &  6.3 \\
+     \tt{3f-fe-88}  & 458,459 (4.5\%)      &  5.3 \\
+     \tt{58-32-36}  & 327,634 (3.2\%)      &  7.5 \\
+     \tt{60-01-f8}  & 252,454 (2.5\%)      &  9.8 \\
+     \tt{60-02-1b}  & 222,253 (2.2\%)      & 10.1 \\
+     \tt{60-02-4b}  & 146,068 (1.4\%)      & 16.8 \\
+     \tt{60-03-82}  & 494,841 (4.9\%)      &  5.0 \\
+     \tt{60-05-5f}  & 274,502 (2.7\%)      &  9.0 \\
+     \tt{60-05-69}  & 437,136 (4.3\%)      &  5.7 \\
+     \tt{60-05-78}  & 304,145 (3.0\%)      &  8.1 \\
+     \tt{60-05-ab}  & 284,764 (2.8\%)      &  8.7 \\
+     \tt{60-06-27}  & 321,879 (3.2\%)      &  7.7 \\
+     \tt{60-08-d5}  & 263,120 (2.6\%)      &  9.3 \\
+     \tt{b0-00-87}  & 199,626 (2.0\%)      & 12.3 \\
+     \tt{b0-00-aa}  & 544,439 (5.4\%)      &  4.5 \\
+     \tt{b0-00-cc}  & 567,232 (5.6\%)      &  4.3 \\
      \hline
   \end{tabular}
   \caption{The charge statistics.}
@@ -253,7 +254,7 @@ There is a difference of 3513 days between the minimal and maximal lifetime.
 \begin{figure}
     \centering
     \includegraphics[width=\columnwidth]{pister_hack}
-    \caption{The famous Pister-Hack model here}
+    \caption{The famous Pister-Hack model.}
     \label{fig:pister_hack}
 \end{figure}
 
@@ -292,7 +293,10 @@ When the RSSI values are below that threshold, PDR values remain near 100\%, ind
 \begin{figure}
     \centering
     \includegraphics[width=\columnwidth]{waterfall}
-    \caption{The PDR/RSSI waterfall. After the -85dBm RSSI threshold, PDR values significantly drop.}
+    \caption{
+        The PDR/RSSI waterfall.
+        After the -85dBm RSSI threshold, PDR values significantly drop.
+    }
     \label{fig:waterfall}
 \end{figure}
 
@@ -325,7 +329,7 @@ Note that the RSSI is an averaged value over the different channels.
 \begin{figure}
     \centering
     \includegraphics[width=\columnwidth]{sym_plot}
-    \caption{The different active links between 2016-06-18 and 2016-06-25}
+    \caption{The different active links between 2016-06-18 and 2016-06-25.}
     \label{fig:tab_symmetry}
 \end{figure}
 
@@ -353,7 +357,7 @@ The number of path\_create and path\_delete is also kept low.
 \begin{figure}
     \centering
     \includegraphics[width=\columnwidth]{net_churn}
-    \caption{Network churn here}
+    \caption{Network churn.}
     \label{fig:net_churn}
 \end{figure}
 
