@@ -80,22 +80,21 @@ Frost detection systems already exist but few are actually able to propose predi
 % the architecture
 
 Due to the heavy machinery used to exploit the peach production, using cables is not conceivable.
-The deployed solution is composed of a low-power wireless network and a back-end system to retrieve and visualize the data.
-The network is formed by \smip devices from the Linear Technology company and is in charge of measuring the orchard environment, gather the data into a gateway and pass it to the back-end system.
-The system collects both sensor values and network statistics.
-The back-end system stores and backups the data and provide a visual interface and an API to access the data minutes after it was measured in Argentina.
+The deployed solution is composed of a low-power wireless sensor network and a back-end system to retrieve and visualize the data.
+The wireless network is formed by \smip devices from the Linear Technology company and is in charge of measuring the orchard environment such as air temperature and relative humidity.
+The system collects both sensor values and network statistics and provide a visual interface and an API to access the data minutes after it was measured in Argentina.
 
 % the deployment
 
-The low-power wireless network is composed of 18 nodes uniformly distributed between the peach trees and 3 nodes to connect the orchards node and the gateway~\ref{fig:map}.
+The low-power wireless network is composed of 18 nodes uniformly distributed between the peach trees and 3 nodes to link up the orchards nodes and the gateway~\ref{fig:map}.
 The covered area is an orchard with 204 trees on a 50*100m surface.
 Each network mote is placed inside a water-tight box that is fixed on a 4m pole~\ref{fig:orchard}.
 At the time of writing, the project is on its first stage.
 During this stage, the goal is to verify that the network fulfill its requirements and that all the sensor values and statistics are correctly collected.
-The location and environment of the current temperature sensors are not adequate, consequently, we do not exploit that information in this paper.
+The current location and environment of the temperature sensors do not reflect reality, we do not exploit that information in this paper.
 During the second stage, we will introduce additional sensors such as air temperature at different high, air relative humidity, soil moisture and soil temperature.
 
-%======== front-page figure, do not mote
+%======== front-page figure, do not move
 \begin{figure}
     \centering
     \includegraphics[width=\columnwidth]{orchard}
@@ -131,7 +130,7 @@ During the second stage, we will introduce additional sensors such as air temper
 
 We use four types of \smip devices to form the low-power wireless network.
 The DC9018 with external antenna and the DC9003 with chip antenna are deployed inside the orchard.
-Longe-range modes \keoma{@thomas: could you replace with exact name} are deployed outside the orchards to connect the network with the DC2274 device that is the gateway.
+Longe-range modes \keoma{@thomas: could you replace with exact name ?} are deployed outside the orchards to connect the network with the DC2274 device that is the gateway.
 
 % the technology
 
@@ -146,9 +145,10 @@ In 4~months, we gathered more than 2M~temperature values, and more than 350K~net
 
 % the goal of this paper
 
-The goal of this paper is to present the first feedbacks we have from the 4-month-old project and the lessons we learned from deploying WSN in real environment.
+The goal of this paper is to present the first feedbacks we have from the 4-month-old project and the lessons we learned from analysing this WSN in real environment.
 This paper makes the following contributions:
 \begin{itemize}
+    \item{We analyse network dynamic and show that channel hopping introduces high stability}
     \item{We analyse the link asymmetry and show that a link can be considered symmetrical in certain conditions}
 \end{itemize}
 
@@ -305,7 +305,15 @@ This is confirmed by the large distance with other radio-communicating devices d
 \subsection{End-to-End Reliability}
 \label{sec:net_reliability}
 
-\lorem
+% steady state results
+
+Table~\ref{tab:net_stats} presents the statistics from the last time the network restarted (i.e 10 days).
+The results correspond to the ones presented in the project presentation paper~\cite{watteyne16peach} as stated:
+``After approx. 24~hours of operation, a \smip network reaches steady state"".
+
+All the 693,844 messages produced by the sensor network were received by the network gateway.
+The stability, i.e the average PDR over the different links, increased of 2\%.
+The latency, i.e the averaged time a message travel inside the network, lowered from 700~ms to 800~ms.
 
 \begin{table}
     \begin{tabular}{|l|l|}
@@ -316,6 +324,7 @@ This is confirmed by the large distance with other radio-communicating devices d
         \hline
     \end{tabular}
     \caption{The overall network statistic over the last 10 days.}
+    \label{tab:net_stats}
 \end{table}
 
 %------------------------------------------------------------------------------
