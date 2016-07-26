@@ -10,43 +10,47 @@
 \usepackage[utf8]{inputenc}
 
  % lorem
-\newcommand{\lorem}               {\textcolor{green}{Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.}}
+\newcommand{\lorem}          {\textcolor{green}{Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.}}
 
 % reviews
-\newcommand{\thomas}[1]             {\textcolor{blue}{[Thomas] #1}}
-\newcommand{\javier}[1]             {\textcolor{purple}{[Javier] #1}}
-\newcommand{\keoma}[1]              {\textcolor{cyan}{[Keoma] #1}}
-\newcommand{\remy}[1]               {\textcolor{yellow}{[Remy] #1}}
-\newcommand{\jonathan}[1]           {\textcolor{pink}{[Jonathan] #1}}
+\newcommand{\todo}[1]        {\textcolor{red}{[TODO] #1}}
+\newcommand{\keoma}[1]       {\textcolor{blue}{[Keoma] #1}}
+\newcommand{\xavi}[1]        {\textcolor{blue}{[Xavi] #1}}
+\newcommand{\remy}[1]        {\textcolor{blue}{[Remy] #1}}
+\newcommand{\jonathan}[1]    {\textcolor{blue}{[Jonathan] #1}}
+\newcommand{\thomas}[1]      {\textcolor{blue}{[Thomas] #1}}
 
 % shortcuts
-\newcommand{\name}                  {PEACH\xspace}
-\newcommand{\smip}                  {SmartMesh~IP\xspace}
+\newcommand{\name}           {PEACH\xspace}
+\newcommand{\smip}           {SmartMesh~IP\xspace}
 
 \graphicspath{{figures/}}
 
 \begin{document}
-\title{(Un)Intuitive Results from a Smart Agriculture\\Low-power Wireless Mesh Deployment}
+\title{(Not so) Intuitive Results from a Smart Agriculture\\Low-power Wireless Mesh Deployment}
 
-\numberofauthors{5}
+\numberofauthors{6}
 \author{
-  \alignauthor Keoma Brun-Laguna\\
-    \affaddr{Inria, EVA team,\\ Paris, France}\\
-    \email{keoma.brun@inria.fr}
-  \alignauthor Xavier Vilajosana\\
-    \affaddr{Univ. Oberta de Catalunya, Barcelona, Catalonia, Spain}\\
-    \email{xvilajosana@uoc.edu}
-  \alignauthor Rémy Léone\\
-    \affaddr{Inria, EVA team,\\ Paris, France}\\
-    \email{remy.leone@inria.fr}
-  \and
-  \alignauthor Jonathan Muñoz\\
-    \affaddr{Inria, EVA team, Paris, France}\\
-    \affaddr{Gridbee, France}\\
-    \email{jonathan.munoz@inria.fr}
-  \alignauthor Thomas Watteyne\\
-    \affaddr{Inria, EVA team,\\ Paris, France}\\
-    \email{thomas.watteyne@inria.fr}
+    \alignauthor Keoma~Brun-Laguna\\
+        \affaddr{Inria, EVA team,\\ Paris, France}\\
+        \email{keoma.brun@inria.fr}
+    \alignauthor Ana~Laura~Diedrichs\\
+        \affaddr{Universidad Tecnológica Nacional (UTN)\\Mendoza, Argentina}\\
+        \email{ana.diedrichs@frm.utn.edu.ar}
+    \alignauthor Diego~Dujovne\\
+        \affaddr{Universidad Diego Portales}\\
+        \affaddr{Santiago, Chile}\\
+        \email{diego.dujovne@mail.udp.cl}
+    \and
+    \alignauthor R\'emy~L\'eone\\
+        \affaddr{Inria, EVA team,\\ Paris, France}\\
+        \email{remy.leone@inria.fr}
+    \alignauthor Xavier~Vilajosana\\
+        \affaddr{Univ. Oberta de Catalunya, Barcelona, Catalonia, Spain}\\
+        \email{xvilajosana@uoc.edu}
+    \alignauthor Thomas~Watteyne\\
+        \affaddr{Inria, EVA team,\\ Paris, France}\\
+        \email{thomas.watteyne@inria.fr}
 }
 
 \maketitle
@@ -149,13 +153,17 @@ Section~\ref{sec:analysis} describes the different analysis we performed on link
 Finally, Section~\ref{sec:conclusion} concludes this paper and discusses further improvements.
 
 %==============================================================================
-\section{Data and Context}
+\section{Statistics Collected}
 \label{sec:collected}
 
-%------------------------------------------------------------------------------
-\subsection{Collected Data}
+% where it is collected
 
-% health report description
+The wireless network is deployed inside an orchard located in the country-side, around 45~km for Mendoza in Argentina.
+Inside the field no other electronic device than the ones from the sensor network are present.
+Local farmers work inside the field with heavy machinery approximately every 20 days for a period of one to two hours.
+In the region the temperature can raise from $-9$~C in winter to +38~C in Summer.
+
+% description health reports
 
 Each device in the network produces both sensor data and network statistics.
 Network statistics can be separated in \textbf{Events} and \textbf{Health Reports} messages.
@@ -172,28 +180,79 @@ Each device sends one type of Health Report every 5~min making the complete set 
 
 Over a period of 4 months, we collected a total of:
 \begin{itemize}
-    \item 140897 HR\_NEIGHBORS messages
-    \item 87737 HR\_DISCOVERED messages
-    \item 132758 HR\_DEVICE messages
-    \item 4098 path\_create messages
-    \item 3653 path\_delete messages
-    \item 133 mote\_create messages
+    \item 140,897 HR\_NEIGHBORS messages
+    \item  87,737 HR\_DISCOVERED messages
+    \item 132,758 HR\_DEVICE messages
+    \item   4,098 path\_create messages
+    \item   3,653 path\_delete messages
+    \item     133 mote\_create messages
 \end{itemize}
 
-%------------------------------------------------------------------------------
-\subsection{Context}
-
-The wireless network is deployed inside an orchard located in the country-side, around 45~km for Mendoza in Argentina.
-Inside the field no other electronic device than the ones from the sensor network are present.
-Local farmers work inside the field with heavy machinery approximately every 20 days for a period of one to two hours.
-In the region the temperature can raise from -9C in winter to +38C in Summer.
-
 %==============================================================================
-\section{Analysis}
-\label{sec:analysis}
+\section{Intuitive Results}
+\label{sec:intuitive}
 
 %------------------------------------------------------------------------------
-\section{Charge}
+\subsection{Wireless Waterfall}
+
+% sample presentation
+
+Due to the inherent physical unreliability of the radio medium, it is impossible to know if a future transmission will be successful or not.
+The Packet Delivery Ratio (PDR) is the proportion of successful transmissions over the total number of transmissions.
+Over a period of 4 months, 140897 HR\_NEIGHBORS messages were collected.
+Nodes maintain a list of potential neighbors with which they do not communicate with.
+We removed the portion of neighbors with no transmission (237252 messages) and kept only the DC9003 motes, resulting into a total of 125103 messages (approx. 27\%).
+
+% Waterfall
+
+In Fig.\ref{fig:waterfall}, we show the so-called \textit{waterfall plot}, displaying the RSSI values against PDR values over the 4-months period.
+A clear threshold appears when the RSSI values go below -85~dBm.
+For RSSI values above that threshold, the PDR drastically decreases implying retransmission.
+When the RSSI values are below that threshold, PDR values remain near 100\%, inducing successful transmissions.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\columnwidth]{waterfall}
+    \caption{
+        The PDR/RSSI waterfall.
+        After the -85~dBm RSSI threshold, PDR values significantly drop.
+    }
+    \label{fig:waterfall}
+\end{figure}
+
+%------------------------------------------------------------------------------
+\subsection{RSSI vs Distance}
+\label{sec:rssi_distance}
+
+\lorem
+
+\lorem
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\columnwidth]{pister_hack}
+    \caption{The famous Pister-Hack model.}
+    \label{fig:pister_hack}
+\end{figure}
+
+%------------------------------------------------------------------------------
+\subsection{End-to-End Reliability}
+\label{sec:net_reliability}
+
+\lorem
+
+\begin{table}
+    \begin{tabular}{|l|l|}
+        \hline
+        reliability & 100\% (Arrived/Lost:   693844/0)\\ \hline
+        stability   & 95\% (Transmit/Fails: 4405569/258778)\\ \hline
+        latency     & 700 msec\\
+        \hline
+    \end{tabular}
+\end{table}
+
+%------------------------------------------------------------------------------
+\subsection{Network Lifetime}
 \label{sec:charge}
 
 % description
@@ -243,62 +302,9 @@ There is a difference of 3513 days between the minimal and maximal lifetime.
   \label{tab:stats_charge}
 \end{table}
 
-%------------------------------------------------------------------------------
-\subsection{RSSI vs Distance}
-\label{sec:rssi_distance}
-
-\lorem
-
-\lorem
-
-\begin{figure}
-    \centering
-    \includegraphics[width=\columnwidth]{pister_hack}
-    \caption{The famous Pister-Hack model.}
-    \label{fig:pister_hack}
-\end{figure}
-
-%------------------------------------------------------------------------------
-\subsection{Network Reliability}
-\label{sec:net_reliability}
-
-\begin{table}
-    \begin{tabular}{|l|l|}
-        \hline
-        reliability & 100\% (Arrived/Lost:   693844/0)\\ \hline
-        stability   & 95\% (Transmit/Fails: 4405569/258778)\\ \hline
-        latency     & 700 msec\\
-        \hline
-    \end{tabular}
-\end{table}
-
-%------------------------------------------------------------------------------
-\subsection{RSSI vs PDR}
-
-% sample presentation
-
-Due to the inherent physical unreliability of the radio medium, it is impossible to know if a future transmission will be successful or not.
-The Packet Delivery Ratio (PDR) is the proportion of successful transmissions over the total number of transmissions.
-Over a period of 4 months, 140897 HR\_NEIGHBORS messages were collected.
-Nodes maintain a list of potential neighbors with which they do not communicate with.
-We removed the portion of neighbors with no transmission (237252 messages) and kept only the DC9003 motes, resulting into a total of 125103 messages (approx. 27\%).
-
-% Waterfall
-
-In Fig.\ref{fig:waterfall}, we show the so-called \textit{waterfall plot}, displaying the RSSI values against PDR values over the 4-months period.
-A clear threshold appears when the RSSI values go below -85dBm.
-For RSSI values above that threshold, the PDR drastically decreases implying retransmission.
-When the RSSI values are below that threshold, PDR values remain near 100\%, inducing successful transmissions.
-
-\begin{figure}
-    \centering
-    \includegraphics[width=\columnwidth]{waterfall}
-    \caption{
-        The PDR/RSSI waterfall.
-        After the -85dBm RSSI threshold, PDR values significantly drop.
-    }
-    \label{fig:waterfall}
-\end{figure}
+%==============================================================================
+\section{Unintuitive Results}
+\label{sec:unintuitive}
 
 %------------------------------------------------------------------------------
 \subsection{Link Symmetry}
@@ -361,7 +367,6 @@ The number of path\_create and path\_delete is also kept low.
     \label{fig:net_churn}
 \end{figure}
 
-
 %==============================================================================
 \section{Conclusion}
 \label{sec:conclusion}
@@ -376,5 +381,3 @@ The number of path\_create and path\_delete is also kept low.
 \bibliography{16chants}
 
 \end{document}
-
-%
