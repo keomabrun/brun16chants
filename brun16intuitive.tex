@@ -214,14 +214,16 @@ Each device sends one type of Health Report every 5~min making the complete set 
 \subsection{RSSI vs Distance}
 \label{sec:rssi_distance}
 
-\lorem
+From the Friis' transmission equation, we know that RSSI can be stated as function of distance.
+To verify that our dataset corresponds to that equation we plot the RSSI over the distance (log-scale) of the data collected between the 18th of May to the 6th of June (19 days) in Fig.\ref{fig:pister_hack}.
+We observe that all the values are located between the Friis' transmission equation and a -40dB shift.
 
 \lorem
 
 \begin{figure}
     \centering
     \includegraphics[width=\columnwidth]{pister_hack}
-    \caption{The famous Pister-Hack model.}
+    \caption{All the measures are located between the Friis equation and a -40dB shift.}
     \label{fig:pister_hack}
 \end{figure}
 
