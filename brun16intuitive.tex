@@ -436,14 +436,18 @@ Note that the RSSI is an averaged value over the different channels.
 The nodes in the network form a Destination Oriented Direct Acyclic Graph (DODAG) oriented toward the gateway (i.e the DAG root).
 Each node maintains a list of neighbors, with which they communicate or not, and dynamically change their routes depending on link quality. \keoma{@thomas:is it true ? or they use other metrics ?}
 When reliability is high the network topology stay stable and the nodes use the same neighbors.
-When the reliability decreases, nodes select other neighbors, making the network graph to change.
+When the reliability decreases on a certain path, nodes select other neighbors, making the network topology to change.
 Instability in the network increases the signaling traffic to reconstruct the routes and introduce more bandwidth and energy consumption.
+
+% dataset
+
+To study the network stability we use the \pathdelete and \pathcreate event messages described in Section~\ref{sec:collected}.
+Those messages are sent every time a path with a neighbor is deleted or created responsively.
+Node {\tt b0-00-cc} was removed from the dataset as it does not respect the Dust requirement of having at least two parents to associate with.
+Due to the lack of second parent the node was producing more than 20 time amount of messages than all the other nodes assembled.
 
 % results
 
-To study the network stability we use the \pathdelete and \pathcreate event messages.
-Those messages are sent every time a path with a neighbor is deleted or created responsively.
-Here a path denotes a layer 4 association between two nodes.
 Fig.\ref{fig:net_churn} shows the number of events message per hour as well as the total number of links per hour over a two-weeks period.
 We can see that the number of links stay close to 35 for the entire period.
 The number of \pathcreate and \pathdelete is also kept low.
