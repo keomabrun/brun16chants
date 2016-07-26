@@ -177,16 +177,48 @@ Each device in the network produces both sensor data and network statistics.
 Network statistics can be separated in \textbf{Events} and \textbf{Health Reports} messages.
 The Events messages are non periodic information triggered when a node join/leave the network or when a link (layer 2) is created/deleted.
 The Health Report (HR) message are sent periodically and provide counters and statistics to assess the overall network health.
-There are three types of HR: \HRDEVICE, \HRDISCOVERED, and \HRNEIGHBORS.
-\HRDEVICE messages give information about the mote itself such as is current battery voltage, its internal temperature, and the total number of messages it has send.
-\HRNEIGHBORS messages give information about the mote active neighbors that are the neighbors with which it communicates.
-For each of this neighbors, the \HRNEIGHBORS message provide information such as Receive Signal Strength Indicator (RSSI), the number of successfully transmitted messages, and the number of messages it received from that neighbor.
-\HRDISCOVERED messages give information about the mote potential neighbors such as RSSI value.
-Each device sends one type of Health Report every 5~min making the complete set of Health Report generated every 15~min.
 
-% numer stats
+% MOTE_CREATE
 
-\lorem
+Each \smip is associated with an identifier called \textit{netId} that allows to have multiple networks cohabit in the same location.
+When a mote wants to join a network, it listens for traffic and looks for devices that have the same \textit{netId} as itself.
+Once it has identified the devices that share the same \textit{netid}, the node selects the best parent to send its joining request to.
+The joining request will trigger a security handshake mechanism and produce a \motecreate event message.
+This message contains the association between the newly-joined device's MAC address and a \textit{moteId} that is used for future communications.
+
+% PATH_CREATE PATH_DELETE
+
+To communicate with its neighbors, each devices creates `paths'.
+In this paper, we use the word `path' and `link' interchangeably to designate a layer 2 resource reservation and its associated metrics (e.g signal strength, delivery ratio...).
+When two nodes reserve resources to communicate with each others, a \pathcreate event message is produced.
+When the nodes disallocate those resources, a \pathdelete is produced.
+
+% HR_NEIGHBORS
+
+Each node with an associated path is considered as a neighbor.
+When deploying a \smip network, there are strong recommendations to follow, the most important one is that each nodes must have at least three `good' neighbors.
+A neighbor is considered as `good' when the path with it has a stability superior to a configurable value.
+The stability is given by the Packet Delivery Ration (PDR), i.e the percentage of successfully transmitted messages over the total number of transmitted messages.
+Each node maintains a list of neighbors and periodically send \HRNEIGHBORS messages to the network manager.
+\HRNEIGHBORS messages contain the path information with each neighbor.
+
+% HR_DISCOVERED
+
+Each node also maintains a list of `discovered neighbors' that are potential neighbors that can be used in case of path quality degradation with existing neighbors.
+In the same way as \HRNEIGHBORS, nodes send \HRDISCOVERED messages that give information about the node potential neighbors such as RSSI value with that neighbor.
+
+% HR_DEVICE
+
+The network devices also produce \HRDEVICE messages give information about the mote itself.
+\HRDEVICE messages include information such as node current battery voltage, internal temperature, and total number of messages the node has send.
+Each device sends one type of Health Report (i.e \HRNEIGHBORS, \HRDISCOVERED, \HRDEVICE) every 5~min making the complete set of Health Reports generated every 15~min.
+
+% messages stats
+
+During the 4-month period we gathered an important amount of network statistics, presented in Table.\ref{tab:msg_stats}.
+Possibly due to power line failure at the network manager side, the network experienced some restarting.
+For this reason, some of the analysis presented in the next sections are done in shorter period of time.
+As a side effect, this phenomenon allowed us to verify the network formation and joining process.
 
 \begin{table}
     \centering
@@ -194,15 +226,15 @@ Each device sends one type of Health Report every 5~min making the complete set 
         \hline
         \multicolumn{1}{|c|}{type} & \multicolumn{1}{|c|}{number} \\ \hline
         \hline
-        \HRNEIGHBORS    & \HRNEIGHBORSTOTALNUMBER \\ \hline
-        \HRDISCOVERED   &  87,737 \\ \hline
-        \HRDEVICE       & 132,758 \\ \hline
+        \motecreate     &     133 \\ \hline
         \pathcreate     &   4,098 \\ \hline
         \pathdelete     &   3,653 \\ \hline
-        \motecreate     &     133 \\ \hline
+        \HRDEVICE       & 132,758 \\ \hline
+        \HRNEIGHBORS    & \HRNEIGHBORSTOTALNUMBER \\ \hline
+        \HRDISCOVERED   &  87,737 \\ \hline
     \end{tabular}
     \caption{The number of statistics collected over 4~months of network operation.}
-    \label{tab:num_stats}
+    \label{tab:msg_stats}
 \end{table}
 
 %==============================================================================
