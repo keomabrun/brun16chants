@@ -141,11 +141,11 @@ Longe-range modes \keoma{@thomas: could you replace with exact name ?} are deplo
 
 The \smip motes are based on the IEEE 802.15.4e standard~\cite{std_ieee802154e} that includes a channel hopping mechanism to reduce the impact of multipath fading and external interferences.
 Channel hopping exploit the frequency diversity to reduce the probability of interferences and improve link reliability.
-This mechanism show good results in the Wireless Sensor Network (WSN) context~\cite{watteyne2010mitigating, watteyne2009reliability} and allows to achieve high reliability while saving energy.
+This mechanism shows good results in the Wireless Sensor Network (WSN) context~\cite{watteyne2010mitigating, watteyne2009reliability} and allows achieving high reliability while saving energy.
 
 % the data
 
-Each mote produce a temperature value every 30 seconds and network statistics every 5~minutes.
+Each mote produces a temperature value every 30 seconds and network statistics every 5~minutes.
 In 4~months, we gathered more than 2M~temperature values, and more than 350K~network statistics.
 
 % the goal of this paper
@@ -202,8 +202,8 @@ When the nodes disallocate those resources, a \pathdelete is produced.
 % HR_NEIGHBORS
 
 Each node with an associated path is considered as a neighbor.
-When deploying a \smip network, there are strong recommendations to follow, the most important one is that each nodes must have at least three `good' neighbors.
-A neighbor is considered as `good' when the path with it has a stability superior to a configurable value.
+When deploying a \smip network, there are strong recommendations to follow, the most important one is that each nodes must have at least three ``good'' neighbors.
+A neighbor is considered as ``good'' when the path with it has a stability superior to a configurable value.
 The stability is given by the Packet Delivery Ration (PDR), i.e the percentage of successfully transmitted messages over the total number of transmitted messages.
 Each node maintains a list of neighbors and periodically send \HRNEIGHBORS messages to the network manager.
 \HRNEIGHBORS messages contain the path information with each neighbor.
@@ -216,14 +216,14 @@ In the same way as \HRNEIGHBORS, nodes send \HRDISCOVERED messages that give inf
 % HR_DEVICE
 
 The network devices also produce \HRDEVICE messages give information about the mote itself.
-\HRDEVICE messages include information such as node current battery voltage, internal temperature, and total number of messages the node has send.
+\HRDEVICE messages include information such as node current battery voltage, internal temperature, and total number of messages the node has sent.
 Each device sends one type of Health Report (i.e \HRNEIGHBORS, \HRDISCOVERED, \HRDEVICE) every 5~min making the complete set of Health Reports generated every 15~min.
 
 % messages stats
 
 During the 4-month period we gathered an important amount of network statistics, presented in Table.\ref{tab:msg_stats}.
 Possibly due to power line failure at the network manager side, the network experienced some restarting.
-For this reason, some of the analysis presented in the next sections are done in shorter period of time.
+For this reason, some analysis presented in the next sections are done in shorter period.
 As a side effect, this phenomenon allowed us to verify the network formation and joining process.
 
 \begin{table}
@@ -292,7 +292,7 @@ The device manufacturer documentation~\cite{smip_app_note} indicates that a path
 
 % interferences
 
-A waterfall plot either shifted right with very few path below -70dBm or with non-constantly decreasing curve would be an example of interference-prone environment.
+A \textit{waterfall plot} either shifted right with very few path below -70dBm or with non-constantly decreasing curve would be an example of interference-prone environment.
 As Fig.\ref{fig:waterfall} shows, devices do not have issues when communicating with links that have a low RSSI.
 It means that high interferences are not present on the network.
 This is confirmed by the large distance with other radio-communicating devices due to the location of the orchard.
@@ -315,7 +315,7 @@ This is confirmed by the large distance with other radio-communicating devices d
 
 Table~\ref{tab:net_stats} presents the statistics from the last time the network restarted (i.e 10 days).
 The results correspond to the ones presented in the project presentation paper~\cite{watteyne16peach} as stated:
-``After approx. 24~hours of operation, a \smip network reaches steady state"".
+``After approx. 24~hours of operation, a \smip network reaches steady state''.
 
 All the 693,844 messages produced by the sensor network were received by the network gateway.
 The stability, i.e the average PDR over the different links, increased of 2\%.
@@ -349,7 +349,7 @@ Every node is crucial in this application as each mode is connected to multiple 
 We thus consider the network lifetime as the time when the first node runs out of battery.
 The node with the maximal amount of days left is node {\tt 60-02-4b}.
 From~Fig.\ref{fig:map}, we can see that the node has no child and thus, do not retransmit any data from its neighbors.
-The node with the minimal lifetime is node {\tt b0-00-cc} , that is one of the long-range node that is use to link up the orchard motes to the network gateway, see Fig.\ref{fig:map}.
+The node with the minimal lifetime is node {\tt b0-00-cc} , that is one of the long-range node that is used to link up the orchard motes to the network gateway, see Fig.\ref{fig:map}.
 It is normal that this node spend more energy than the others as all the traffic passes through it.
 While being the most loaded node, {\tt b0-00-cc} has above 4 years lifetime.
 This shows the very low consumption of the wireless mesh network.
@@ -411,7 +411,7 @@ Those movements could create internal interferences such as multipath fading.
 % symmetry analysis
 
 A common assumption is to assume that a layer 2 link between two identical wireless nodes is asymmetrical.
-We looked at the links statistics between the 18th of June and the 4th of July (16 days) and analysed the difference between the RSSI values.
+We looked at the link statistics between the 18th of June and the 4th of July (16 days) and analysed the difference between the RSSI values.
 The sample contains 411132 \HRNEIGHBORS messages and concerns 14 nodes with the same hardware (DC9003).
 During that period, 21 different bidirectional links are active with at least 250 transmissions for each link.
 For each of those links, we compute the RSSI difference between the two directions of the link (i.e from A to B and from B to A) and present the results in Fig.~\ref{fig:tab_symmetry}).
@@ -443,7 +443,7 @@ To study the network stability we use the \pathdelete and \pathcreate event mess
 Those messages are sent every time a path with a neighbor is deleted or created responsively.
 Here a path denotes a layer 4 association between two nodes.
 Fig.\ref{fig:net_churn} shows the number of events message per hour as well as the total number of links per hour over a two-weeks period.
-We can see that the number of links stay close to 35 for the entire period of time.
+We can see that the number of links stay close to 35 for the entire period.
 The number of \pathcreate and \pathdelete is also kept low.
 
 \begin{figure}
@@ -460,7 +460,7 @@ The number of \pathcreate and \pathdelete is also kept low.
 The PEACH project started in April 2016 to build a low-power wireless sensor network based, turn-key solution to predict frost event in peach orchards.
 After 4 months of measurements, we present the first data analysis from the collected data.\\
 
-Some of the results are intuitive.\\
+Some results are intuitive.\\
 1. The RSSI against distance measurements follow the Friis transmission equation.
 2. The relation between RSSI and PDR shows that interferences inside the field are low.
 3. The overall network statistics that are reliability, stability and latency did not change much compared to the project first 24~hours measurements.
@@ -468,7 +468,7 @@ This shows that the network statistics are highly predictable.\\
 4. The nodes that relay more traffic spend more energy than the other nodes.
 The most loaded note has a 4.3~years lifetime showing the extremely low consumption of the network.\\
 
-Some of the results are not intuitive.\\
+Some results are not intuitive.\\
 1. While it is often assumed that RSSI is asymmetrical between two nodes, we show that when considering the averaged RSSI over the 16 different IEEE802.15.4 channels, links are very symmetrical.
 2. The TSCH based network can show very high stability.
 We observed less than 5 path modifications per hour during a two weeks period.\\
