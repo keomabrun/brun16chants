@@ -449,9 +449,24 @@ The number of \pathcreate and \pathdelete is also kept low.
 \section{Conclusion}
 \label{sec:conclusion}
 
-% conclusion
+The PEACH project started in April 2016 to build a low-power wireless sensor network based, turn-key solution to predict frost event in peach orchards.
+After 4 months of measurements, we present the first data analysis from the collected data.\\
 
-\lorem
+Some of the results are intuitive.\\
+1. The RSSI against distance measurements follow the Friis transmission equation.
+2. The relation between RSSI and PDR shows that interferences inside the field are low.
+3. The overall network statistics that are reliability, stability and latency did not change much compared to the project first 24~hours measurements.
+This shows that the network statistics are highly predictable.\\
+4. The nodes that relay more traffic spend more energy than the other nodes.
+The most loaded note has a 4.3~years lifetime showing the extremely low consumption of the network.\\
+
+Some of the results are not intuitive.\\
+1. While it is often assumed that RSSI is asymmetrical between two nodes, we show that when considering the averaged RSSI over the 16 different IEEE802.15.4 channels, links are very symmetrical.
+2. The TSCH based network can show very high stability.
+We observed less than 5 path modifications per hour during a two weeks period.\\
+
+This first study prepares the ground for the next stage of the project where we will add additional sensors and present frost prediction results.
+
 
 %==============================================================================
 
