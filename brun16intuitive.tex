@@ -67,7 +67,7 @@
 A 23-node low-power wireless mesh network is deployed in a peach orchard.
 The network serves as a frost event prediction system.
 On top of sensor values, devices also report network statistics.
-In 4~months of operations, the network has produced over 2~million temperature values, and over 350,000~network statistics.
+In 3~months of operations, the network has produced over 2~million temperature values, and over 350,000~network statistics.
 This paper presents an in-depth analysis of the statistics, in order to precisely understand the performance of the network.
 Nodes in the network exhibit an expected lifetime between 4 and 16~years, with an end-to-end reliability of 100\%.
 We show how -- contrary to popular belief -- wireless links are symmetric.
@@ -156,11 +156,11 @@ This allows the network to be highly reliable, stable, and extremely low power~\
 % the data
 
 Each mote produces a temperature value every 30~s, and network statistics every 5~min.
-In 4~months of operation, we gathered over than 2~million temperature values, and more than 350,000~network statistics.
+In 3~months of operation, we gathered over than 2~million temperature values, and more than 350,000~network statistics.
 
 % the goal of this paper
 
-The goal of this paper is to analyze the network statistics over a 4~month period the network has been operating, and precisely assess the performance of the network.
+The goal of this paper is to analyze the network statistics over a 3~month period the network has been operating, and precisely assess the performance of the network.
 This paper makes the following contributions:
 \begin{itemize}
     \item We confirm that the \smip network exhibits years of battery lifetime and wire-like reliability;
@@ -171,7 +171,7 @@ This paper makes the following contributions:
 % paper organisation
 
 The remainder of this paper is organized as follows.
-Section~\ref{sec:collected} describes what statistics we are collecting, and the amount of statistics collected over a 4~month period.
+Section~\ref{sec:collected} describes what statistics we are collecting, and the amount of statistics collected over a 3~month period.
 Section~\ref{sec:intuitive} presents results that confirm assumptions about what we can expect for real-world \smip deployment.
 Section~\ref{sec:notsointuitive} presents not so intuitive results about link symmetry and network stability.
 Finally, Section~\ref{sec:conclusion} concludes this paper and discusses further improvements.
@@ -198,7 +198,7 @@ HRs are used to assess the overall health of the network.
 
 % number received and remainder
 
-Table~\ref{tab:msg_stats} summarizes the number of events and HRs gathered during the 4~month period.
+Table~\ref{tab:msg_stats} summarizes the number of events and HRs gathered during the 3~month period.
 In the remainder of this section, we detail the meaning of each of the statistics.
 
 \begin{table}
@@ -214,7 +214,7 @@ In the remainder of this section, we detail the meaning of each of the statistic
         \HRNEIGHBORS    & \NUMHRNEIGHBORS \\ \hline
         \HRDISCOVERED   &  87,737         \\ \hline
     \end{tabular}
-    \caption{The number of statistics collected a 4~month period.}
+    \caption{The number of statistics collected a 3~month period.}
     \label{tab:msg_stats}
 \end{table}
 
@@ -254,7 +254,7 @@ These messages also specifies per-neighbor counters, such as the number of link-
 
 % analysis
 
-After 4~months of operation, we have collected 369,276~network statistics (see Table~\ref{tab:msg_stats}).
+After 3~months of operation, we have collected 369,276~network statistics (see Table~\ref{tab:msg_stats}).
 The goal of the next section is to present the main results from analyzing this information.
 We group these results in two categories.
 ``Intuitive'' results (Section~\ref{sec:intuitive}) are results which confirm the performance expected from a \smip network.
@@ -300,7 +300,7 @@ This corroborates the results from~\cite{zats10wireless}.
 Due to the inherent physical unreliability of the radio medium, it is impossible to know if a future transmission will be successful or not.
 The Packet Delivery Ratio (PDR) is the portion of successful link-layer transmissions over the total number of link-layer transmission attempts.
 A failed attempt means that the link-layer frame needs to be re-transmitted; it does \textit{not} mean the packet is lost.
-Over a period of 4~months, \NUMHRNEIGHBORS \HRNEIGHBORS messages are collected.
+Over a period of 3~months, \NUMHRNEIGHBORS \HRNEIGHBORS messages are collected.
 These contain, for a given node, the number of link-layer transmission attempts and successes to each of its neighbors.
 We remove the portion of neighbors with no transmission (237,252 messages) and keep only the DC9003 motes, resulting in a total of 125,103 messages (approx. 27\% from the total number of \HRNEIGHBORS).
 
@@ -361,7 +361,7 @@ It presents statistics gathered over July 15-25 2016 period.
 It shows that, as none of the 693,844 packets generated in the network was lost, the end-to-end reliability is 100\%.
 The average PDR over all the links is very high (95\%), indicates the nodes are deployed close enough to one another.
 Finally, the average latency over all nodes is 700~ms.
-These results are very similar to the very initial results presented in~\cite{watteyne16peach}, indicating no degradation in performance of the \smip network over the 4~month operation.
+These results are very similar to the very initial results presented in~\cite{watteyne16peach}, indicating no degradation in performance of the \smip network over the 3~month operation.
 
 %------------------------------------------------------------------------------
 \subsection{Network Lifetime}
@@ -369,22 +369,26 @@ These results are very similar to the very initial results presented in~\cite{wa
 
 % description
 
-Each device is powered by a pair of AA battery (Energizer L-91) with a charge of approximately 2821mAh.
-The charge is measured by a built-in sensor inside the \smip board. \keoma{@thomas: could you give me more details?}
+Each device is powered by a pair of Energizer L-91 AA batteries.
+These contain a nominal 3134~mAh of charge, or 2821~mAh when accounting for a 10\% decrease due to manufacturing differences.
+A \smip node contains a ``charge accounting'' feature in which it tracks the amount of charge is has been drawing from the battery.
+The mote reports this number every 15~min as a field in its \HRDEVICE health report.
+This number allows us to predict the lifetime of the device.
 
 % results
 
-Fig.\ref{tab:stats_charge} shows the device charge statistics over a 4-month period.
-Every node is crucial in this application as each mode is connected to multiple sensors and represents one part of the orchard that could be prone to frost.
-We thus consider the network lifetime as the time when the first node runs out of battery.
-The node with the maximal amount of days left is node {\tt 60-02-4b}.
-From~Fig.\ref{fig:map}, we can see that the node has no child and thus, do not retransmit any data from its neighbors.
-The node with the minimal lifetime is node {\tt b0-00-cc} , that is one of the long-range node that is used to link up the orchard motes to the network gateway, see Fig.\ref{fig:map}.
-It is normal that this node spend more energy than the others as all the traffic passes through it.
-While being the most loaded node, {\tt b0-00-cc} has above 4 years lifetime.
-This shows the very low consumption of the wireless mesh network.
+Table~\ref{tab:stats_charge} shows charge consumed by each of the motes over the 3~month period (87 days), as well as the portion of the battery this represents.
+Assuming the same energy consumption rate, we can extrapolate the lifetime.
 
-\keoma{the same node had a 5.18 years lifetime in prev paper, should we explain it ?}
+The node with the longest lifetime is {\tt 60-02-4b}.
+From Fig.~\ref{fig:map}, we can see that this is a leaf node.
+Since it does not have to relay data from any children, it is normal that this node consumes very little.
+
+The node with the shortest lifetime is {\tt b0-00-cc} 
+It is normal that this node spends more energy as all the traffic passes through it (see Fig.\ref{fig:map}).
+While being the most loaded node, {\tt b0-00-cc} has over 4 years of lifetime.
+
+This shows the very low consumption of the wireless mesh network.
 
 \begin{table}
   \begin{tabular}{|c|c|r|}
@@ -494,7 +498,7 @@ The number of \pathcreate and \pathdelete is also kept low.
 \label{sec:conclusion}
 
 The PEACH project started in April 2016 to build a low-power wireless sensor network based, turn-key solution to predict frost event in peach orchards.
-After 4 months of measurements, we present the first data analysis from the collected data.\\
+After 3 months of measurements, we present the first data analysis from the collected data.\\
 
 Some results are intuitive.\\
 1. The RSSI against distance measurements follow the Friis transmission equation.
