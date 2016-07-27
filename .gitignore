@@ -21,10 +21,7 @@
 *.mtc1
 *.out
 *.synctex.gz
-*.pdf
-
 notebooks/.ipynb_checkpoints/
-
 *.swp
 *.ps
 Thumbs.db
