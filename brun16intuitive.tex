@@ -342,25 +342,26 @@ This is not the case if Fig.~\ref{fig:waterfall}, meaning that the \smip network
 
 % steady state results
 
-Table~\ref{tab:net_stats} presents the statistics from the last time the network restarted (i.e 10 days).
-The results correspond to the ones presented in the project presentation paper~\cite{watteyne16peach} as stated:
-``After approx. 24~hours of operation, a \smip network reaches steady state''.
-
-All the 693,844 messages produced by the sensor network were received by the network gateway.
-The stability, i.e the average PDR over the different links, increased of 2\%.
-The latency, i.e the averaged time a message travel inside the network, lowered from 700~ms to 800~ms.
+We expect the \smip network to offer wire-like reliable.
+Table~\ref{tab:net_stats} confirms that this is the case.
+It presents statistics gathered over July 15-25 2016 period.
 
 \begin{table}
     \begin{tabular}{|l|l|}
         \hline
         reliability & 100\% (Arrived/Lost:   693844/0)\\ \hline
-        stability   & 95\% (Transmit/Fails: 4405569/258778)\\ \hline
+        average PDR & 95\% (Transmit/Fails: 4405569/258778)\\ \hline
         latency     & 700~msec\\
         \hline
     \end{tabular}
     \caption{The overall network statistic over the last 10 days.}
     \label{tab:net_stats}
 \end{table}
+
+It shows that, as none of the 693,844 packets generated in the network was lost, the end-to-end reliability is 100\%.
+The average PDR over all the links is very high (95\%), indicates the nodes are deployed close enough to one another.
+Finally, the average latency over all nodes is 700~ms.
+These results are very similar to the very initial results presented in~\cite{watteyne16peach}, indicating no degradation in performance of the \smip network over the 4~month operation.
 
 %------------------------------------------------------------------------------
 \subsection{Network Lifetime}
