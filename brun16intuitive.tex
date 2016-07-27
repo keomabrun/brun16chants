@@ -385,7 +385,7 @@ Since it does not have to relay data from any children, it is normal that this n
 The node with the shortest lifetime is {\tt b0-00-cc}.
 It is normal that this node spends more energy as all the traffic passes through it (see Fig.\ref{fig:map}).
 While being the most loaded node, {\tt b0-00-cc} has over 4 years of lifetime.
-This shows the very low consumption of the wireless mesh network.
+This shows the ultra-low power consumption of the \smip network.
 
 \begin{table}
   \begin{tabular}{|c|c|r|}
@@ -421,32 +421,34 @@ This shows the very low consumption of the wireless mesh network.
 \section{Not so Intuitive Results}
 \label{sec:notsointuitive}
 
-After presenting the intuitive results, this section shows results that are not straightforward.
-We first show that assuming link asymmetry is not always true by presenting very symmetrical RSSI values when using the same devices an multiple frequencies.
-We then show the high network stability a TSCH-based network can provide by looking at the path creation and deletion over days.
+Results from Section~\ref{sec:intuitive} are ``intuitive'' is that they corroborate previous measurements~\cite{watteyne16peach} or confirm theoretical/lab results~\cite{watteyne10mitigating,watteyne09reliability,watteyne15industrial}.
+This section presents results which we believe go against popular belief.
+This classification is necessarily subjective.
+
+In Section~\ref{sec:symmetry}, we show that links are, in fact, symmetric.
+In Section~\ref{sec:net_stability}, we show that, though the TSCH, the low-power wireless topology is, in fact, extremely stable.
 
 %------------------------------------------------------------------------------
 \subsection{Link (A)Symmetry}
 \label{sec:symmetry}
 
-% RSSI expectations
+% what is reported
 
-The RSSI values can be retrieved from both active neighbors and discovered neighbors Health Reports, thus every 15~min for each pair of device.
-Those RSSI values are averaged values over the 16 channels defined in the IEEE 802.15.4 standard~\cite{std_ieee802154_2011}.
-In the rest of that paper we will use RSSI to denote the average RSSI over the 16 channels.
+Motes report the average RSSI value of the packets received from each neighbor in their \HRNEIGHBORS health reports.
+Before the network uses channel hopping, these reported RSSI values are also averaged over 15 IEEE802.15.4 frequencies~\cite{std_ieee802154_2011}.
+In this section, we use the term ``RSSI'' to denote the average RSSI over 15 frequencies.
 
-% environment
+% what is asymetry
 
-The peach orchard is located in a rural area that is not exposed to high traffic on the ISM band so we do not expect important external interferences.
-Heavy machinery is used inside the orchard by farmers approximately every 20 days and during a period of one to two hours.
-Those movements could create internal interferences such as multipath fading.
+A common assumption is that links between neighbor low-power wireless devices are hugely asymetric.
+That is, on a link between nodes $A$ and $B$, $A$ receives $B$'s link-layer frames with an RSSI very different from the frames $B$ receives from $A$.
+Numerous routing protocols (often standardized~\todo{ref OLSR?}) reuse that assumption and start with a costly phase to filter out asymetric links.
 
-% symmetry analysis
+% what we measure
 
-A common assumption is to assume that a layer 2 link between two identical wireless nodes is asymmetrical.
-We looked at the link statistics between the 18th of June and the 4th of July (16 days) and analysed the difference between the RSSI values.
-The sample contains 411132 \HRNEIGHBORS messages and concerns 14 nodes with the same hardware (DC9003).
-During that period, 21 different bidirectional links are active with at least 250 transmissions for each link.
+We look at the link statistics between the 18 June 2016 and the 4 July 2016 (16 days).
+The sample contains 411,132 \HRNEIGHBORS messages received from 14 DC9003 nodes (i.e.~same hardware).
+During that period, 21~links are active with at least 250~transmissions for each link.
 For each of those links, we compute the RSSI difference between the two directions of the link (i.e from A to B and from B to A) and present the results in Fig.~\ref{fig:tab_symmetry}).
 The very low RSSI difference shows that the links are very symmetrical.
 Note that the RSSI is an averaged value over the different channels.
