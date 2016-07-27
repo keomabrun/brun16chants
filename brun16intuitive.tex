@@ -207,12 +207,12 @@ In the remainder of this section, we detail the meaning of each of the statistic
         \hline
         \multicolumn{1}{|c|}{type} & \multicolumn{1}{|c|}{number} \\ \hline
         \hline
-        \motecreate     &     133 \\ \hline
-        \pathcreate     &   4,098 \\ \hline
-        \pathdelete     &   3,653 \\ \hline
-        \HRDEVICE       & 132,758 \\ \hline
+        \motecreate     &     133         \\ \hline
+        \pathcreate     &   4,098         \\ \hline
+        \pathdelete     &   3,653         \\ \hline
+        \HRDEVICE       & 132,758         \\ \hline
         \HRNEIGHBORS    & \NUMHRNEIGHBORS \\ \hline
-        \HRDISCOVERED   &  87,737 \\ \hline
+        \HRDISCOVERED   &  87,737         \\ \hline
     \end{tabular}
     \caption{The number of statistics collected a 4~month period.}
     \label{tab:msg_stats}
@@ -230,31 +230,36 @@ It contains, among other information, the association between the newly-joined d
 % - - - - - - - - - - - - - -
 \textbf{\pathcreate and \pathdelete.}
 In \smip terminology, a ``path'' is the link-layer resource which allows two neighbor nodes to communicate\footnote{~In more classical networking terminology, this is often referred to as a ``link''. We use the terms ``path'' and ``link'' interchangeably in this paper.}.
-\thomas{Stopped here.}
-When two nodes reserve resources to communicate with each others, a \pathcreate event message is produced.
-When the nodes disallocate those resources, a \pathdelete is produced.
-
-% - - - - - - - - - - - - - -
-\textbf{\HRNEIGHBORS.}
-Each node with an associated path is considered as a neighbor.
-When deploying a \smip network, there are strong recommendations to follow, the most important one is that each nodes must have at least three ``good'' neighbors.
-A neighbor is considered as ``good'' when the path with it has a stability superior to a configurable value.
-The stability is given by the Packet Delivery Ration (PDR), i.e the percentage of successfully transmitted messages over the total number of transmitted messages.
-Each node maintains a list of neighbors and periodically send \HRNEIGHBORS messages to the network manager.
-\HRNEIGHBORS messages contain the path information with each neighbor.
-
-% - - - - - - - - - - - - - -
-\textbf{\HRDISCOVERED.}
-Each node also maintains a list of `discovered neighbors' that are potential neighbors that can be used in case of path quality degradation with existing neighbors.
-In the same way as \HRNEIGHBORS, nodes send \HRDISCOVERED messages that give information about the node potential neighbors such as RSSI value with that neighbor.
+Each time a mote starts communicating with a new neighbor (e.g.~its routing parent), a \pathcreate event is produced.
+Similary, each time a mote \textit{stops} communicating with a neighbor (e.g.~it changes routing parent), a \pathdelete event is produced.
+We log both messages.
 
 % - - - - - - - - - - - - - -
 \textbf{\HRDEVICE.}
-The network devices also produce \HRDEVICE messages give information about the mote itself.
-\HRDEVICE messages include information such as node current battery voltage, internal temperature, and total number of messages the node has sent.
-Each device sends one type of Health Report (i.e \HRNEIGHBORS, \HRDISCOVERED, \HRDEVICE) every 5~min making the complete set of Health Reports generated every 15~min.
+Each network device produces a \HRDEVICE every 15~min.
+This health report contains counters/statistics internal to the mote, such its current battery voltage, temperature, or total number of messages sent.
+
+% - - - - - - - - - - - - - -
+\textbf{\HRDISCOVERED.}
+\smip nodes continuous monitor their surroundings to discover neighbor nodes.
+Every 15~min, each node produces \HRDISCOVERED health report which contains the list of ``discovered'' neighbor, and the associate signal strength it heard it at.
+These discovered neighbors can potentially be used in the future as neighbor the node communicates with.
+
+% - - - - - - - - - - - - - -
+\textbf{\HRNEIGHBORS.}
+Two nodes are neighbors when they link-layer resources are installed for them to communicate.
+The neighbors of a node are a subset of the discovered neighbors.
+Every 15~min, each note generates a \HRNEIGHBORS health report which contains its list of neighbors.
+This messages also specifies per-neighbor counters, such as the number of link-layer restransmissions.
 
 % analysis
+
+After 4~months of operation, we have collected 369,276~network statistics (see Table~\ref{tab:msg_stats}).
+The goal of the next section is to present the main results from analyzing this information.
+We group these results in two categories.
+``Intuitive'' results (Section~\ref{sec:intuitive}) are results which confirm the performance expected from a \smip network.
+``Not so intuitive'' results (Section~\ref{sec:notsointuitive}) are results which we believe go against popular belief.
+This classification is necessarily subjective.
 
 Possibly due to power line failure at the network manager side, the network experienced some restarting.
 For this reason, some analysis presented in the next sections are done in shorter period.
@@ -264,12 +269,15 @@ As a side effect, this phenomenon allowed us to verify the network formation and
 \section{Intuitive Results}
 \label{sec:intuitive}
 
-This section presents the first results we obtained while analysing the statistics generated by the network during the 4-month period.
-While the results can sound trivial, they validate some basic assumptions for IEEE802.15.4e-based networks for Smart Agriculture applications.
-We believe that those results can be used in future works as comparative study.
+Previous publications~\cite{watteyne15industrial,watteyne16peach,watteyne10mitigating,watteyne09reliability} underlie the performance of TSCH networks in general, and \smip in particular.
+Standardization work in the IETF 6TiSCH working group\footnote{~\url{https://tools.ietf.org/wg/6tisch/charters}} around TSCH networks further illustrate the move of the industrt towards this type networking technology.
+So while we expect good performance from the network, this section verifies that this is indeed the case.
+We start by looking at two physical-layer metrics: RSSI vs Distance (Section~\ref{sec:rssi_distance}) and PDR vs. RSSI (Section~\ref{sec:waterfall}).
+While these have no dependency on TSCH (the type medium access), they allow us to verifyt the overall connectivity in the network.
+We then look at key performance indicators of \smip networks: end-to-end reliability (Section~\ref{sec:net_reliability}) and network lifetime (Section~\ref{sec:lifetime}).
 
 %------------------------------------------------------------------------------
-\subsection{RSSI vs Distance}
+\subsection{RSSI vs. Distance}
 \label{sec:rssi_distance}
 
 From the Friis' transmission equation, we know that RSSI can be stated as function of distance.
@@ -285,6 +293,7 @@ We observe that all the values are located between the Friis' transmission equat
 
 %------------------------------------------------------------------------------
 \subsection{Wireless Waterfall}
+\label{sec:waterfall}
 
 % sample presentation
 
@@ -352,7 +361,7 @@ The latency, i.e the averaged time a message travel inside the network, lowered 
 
 %------------------------------------------------------------------------------
 \subsection{Network Lifetime}
-\label{sec:charge}
+\label{sec:lifetime}
 
 % description
 
