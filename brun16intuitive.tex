@@ -22,19 +22,19 @@
 \newcommand{\lorem}          {\textcolor{green}{Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.}}
 
 % shortcuts
-\newcommand{\smip}           {SmartMesh~IP\xspace}
-\newcommand{\HRNEIGHBORS}    {{\tt HR\_NEIGHBORS}\xspace}
-\newcommand{\HRDISCOVERED}   {{\tt HR\_DISCOVERED}\xspace}
-\newcommand{\HRDEVICE}       {{\tt HR\_DEVICE}\xspace}
-\newcommand{\pathcreate}     {{\tt path\_create}\xspace}
-\newcommand{\pathdelete}     {{\tt path\_delete}\xspace}
-\newcommand{\motecreate}     {{\tt mote\_create}\xspace}
-\newcommand{\HRNEIGHBORSTOTALNUMBER}     {140,897}
+\newcommand{\smip}                     {SmartMesh~IP\xspace}
+\newcommand{\HRNEIGHBORS}              {{\tt HR\_NEIGHBORS}\xspace}
+\newcommand{\HRDISCOVERED}             {{\tt HR\_DISCOVERED}\xspace}
+\newcommand{\HRDEVICE}                 {{\tt HR\_DEVICE}\xspace}
+\newcommand{\pathcreate}               {{\tt path\_create}\xspace}
+\newcommand{\pathdelete}               {{\tt path\_delete}\xspace}
+\newcommand{\motecreate}               {{\tt mote\_create}\xspace}
+\newcommand{\HRNEIGHBORSTOTALNUMBER}   {140,897}
 
 \graphicspath{{figures/}}
 
 \begin{document}
-\title{(Not so) Intuitive Results from a Smart Agriculture\\Low-power Wireless Mesh Deployment}
+\title{(Not so) Intuitive Results from a Smart Agriculture\\Low-Power Wireless Mesh Deployment}
 
 \numberofauthors{6}
 \author{
@@ -77,37 +77,50 @@ Thanks to the use of Time Slotted Channel Hopping (TSCH), the network topology i
 \section{Introduction}
 \label{sec:intro}
 
+% the problem
+
+Peaches don't like frost.
+If during the blooming season (September in Argentina), temperature gets below $-$3~C for only a couple of hours, the flowers freeze, and no peaches are produced.
+In 2013, 85\% of the peach production in the Mendoza region (western Argentina) was lost because of frost events.
+Farmers can loose everything in only a couple of hours.
+Yet, if they are warned of a frost event a couple of hours ahead, they can install heaters throughout the orchards, and use big fans to move the hot air around.
+Fighting the frost events is not the issue, what is hard is predicting it.
+
 % the PEACH project
 
-Low temperatures have a very harmful impact on peach production as in 2013, 85\% of the production in the Mendoza region (western Argentina) was lost because of frost.
-In April 2016, three research teams from different countries joined to start the deployment of a frost events prediction system~\cite{watteyne16peach}.
-The goal of this project is to be able to precisely predict frost events and consequently reduce the impact of frost on peach production.
-Frost detection systems already exist but few are actually able to propose prediction.
-
-% the architecture
-
-Due to the heavy machinery used to exploit the peach production, using cables is not conceivable.
-The deployed solution is composed of a low-power wireless sensor network and a back-end system to retrieve and visualize the data.
-The wireless network is formed by \smip devices from the Linear Technology company and is in charge of measuring the orchard environment such as air temperature and relative humidity.
-The system collects both sensor values and network statistics and provide a visual interface and an API to access the data minutes after it was measured in Argentina.
-
-% the deployment
-
-The low-power wireless network is composed of 18 nodes uniformly distributed between the peach trees and 3 nodes to link up the orchards nodes and the gateway~\ref{fig:map}.
-The covered area is an orchard with 204 trees on a 50*100m surface.
-Each network mote is placed inside a water-tight box that is fixed on a 4m pole~\ref{fig:orchard}.
-At the time of writing, the project is on its first stage.
-During this stage, the goal is to verify that the network fulfill its requirements and that all the sensor values and statistics are correctly collected.
-The current location and environment of the temperature sensors do not reflect reality, we do not exploit that information in this paper.
-During the second stage, we will introduce additional sensors such as air temperature at different high, air relative humidity, soil moisture and soil temperature.
+The goal of the PEACH project~\cite{watteyne16peach} is to predict frost events.
+We install sensors around the orchard which measure air temperature, air relative humidity, soil moisture and soil temperature.
+We feed the collected data into a database, and by analyzing the data in real-time using machine learning, we identify patterns in the data and predict frost events.
 
 %======== front-page figure, do not move
 \begin{figure}
     \centering
     \includegraphics[width=\columnwidth]{orchard}
-    \caption{The wireless motes deployed in an orchard in Mendoza, Argentina.}
+    \caption{The wireless motes deployed in a peach orchard in Mendoza, Argentina.}
     \label{fig:orchard}
 \end{figure}
+
+% the architecture
+
+Because of the heavy machinery which moves inside the orchard, using cables to interconnect the sensors is not an option.
+Instead, we use \smip, an off-the-shelf low-power wireless mesh solution from Linear Technology.
+The sensor devices are battery-powered a equipped with a radio.
+They form a multi-hop topology, and collaborate to route the data generated by the devices (called ``motes'') to a gateway.
+This gateway is connected to the Internet, and forwards the data gathered in the peach orchard in Argentina to the PEACH servers in Paris, France.
+Data appears on the web interface on the servers seconds after it was gathered in the orchard.
+
+\begin{figure*}
+    \centering
+    \includegraphics[width=\textwidth]{map_annotated}
+    \caption{Areal view of the sensor network deployed in the orchard near Mendoza, Argentina.}
+    \label{fig:map}
+\end{figure*}
+
+% the deployment
+
+The network is deployed in a peach orchard of 204~trees, planted in a 50~m~$\times$~100~m area (shown in Fig.~\ref{fig:map}).
+The low-power wireless network is composed of 18~sensor motes uniformly distributed between the peach trees, and 3~relay motes to connect the orchard to the gateway some 300~m away.
+Each mote is placed in a water-tight box that is fixed on a 4~m high pole (see Fig.~\ref{fig:orchard}).
 
 \begin{table}
 \begin{center}
@@ -126,46 +139,40 @@ During the second stage, we will introduce additional sensors such as air temper
 \end{center}
 \end{table}
 
-\begin{figure*}
-    \centering
-    \includegraphics[width=\textwidth]{map_annotated}
-    \caption{A map of the sensor deployed in the orchard near Mendoza, Argentina.}
-    \label{fig:map}
-\end{figure*}
+% hardware
 
-% the hardware
+We use four types of \smip devices.
+The 2 DC9018 boards feature an external antenna; the 16 DC9003 boards a chip antenna.
+These are deployed inside the orchard.
+We deploy 3 long-range prototype boards outside the orchards to connect the orchard to the gateway.
+The gateway is composed of a Raspberry~Pi single-board computer, and a DC2274 \smip manager.
 
-We use four types of \smip devices to form the low-power wireless network.
-The DC9018 with external antenna and the DC9003 with chip antenna are deployed inside the orchard.
-Longe-range modes \keoma{@thomas: could you replace with exact name ?} are deployed outside the orchards to connect the network with the DC2274 device that is the gateway.
+% technology
 
-% the technology
-
-The \smip motes are based on the IEEE 802.15.4e standard~\cite{std_ieee802154e_2012} that includes a channel hopping mechanism to reduce the impact of multipath fading and external interferences.
-Channel hopping exploit the frequency diversity to reduce the probability of interferences and improve link reliability.
-This mechanism shows good results in the Wireless Sensor Network (WSN) context~\cite{watteyne10mitigating, watteyne09reliability} and allows achieving high reliability while saving energy.
+The \smip network implements the IEEE802.15.4e standard~\cite{std_ieee802154e_2012}, which includes a channel hopping mechanism to reduce the impact of multipath fading and external interferences.
+This allows the network to be highly reliable, stable, and extremely low power~\cite{watteyne10mitigating, watteyne09reliability}.
 
 % the data
 
-Each mote produces a temperature value every 30 seconds and network statistics every 5~minutes.
-In 4~months, we gathered more than 2M~temperature values, and more than 350K~network statistics.
+Each mote produces a temperature value every 30~s, and network statistics every 5~min.
+In 4~months of operation, we gathered over than 2~million temperature values, and more than 350,000~network statistics.
 
 % the goal of this paper
 
-The goal of this paper is to present the first analysis we obtain from the 4-month-old real-world deployment.
+The goal of this paper is to analyze the network statistics over a 4~month period the network has been operating, and precisely assess the performance of the network.
 This paper makes the following contributions:
 \begin{itemize}
-    \item We confirm models and verify simple assumptions about wireless sensor network when deployed in real conditions
-    \item We analyse network dynamic and show that channel hopping introduces high stability
-    \item We analyse the link asymmetry and show that a link can be considered symmetrical in certain conditions
+    \item We confirm that the \smip network exhibits years of battery lifetime and wire-like reliability;
+    \item We show that channel hopping causes the network topology to be very stable, with $\leq$5 link changes per day;
+    \item Contrary to popular belief, we show that links in the network are symmetric, i.e.~they exhibit the same signal strength in both directions of the same link.
 \end{itemize}
 
 % paper organisation
 
 The remainder of this paper is organized as follows.
-Section~\ref{sec:collected} describes what statistics we are collecting, and how much of it has been collected over 4 months.
-Section~\ref{sec:intuitive} presents the intuitive results that confirm simple assumptions about what we can expect for real-world deployment.
-Section~\ref{sec:notsointuitive} presents the (not so) intuitive results we found about link asymmetry and network stability.
+Section~\ref{sec:collected} describes what statistics we are collecting, and the amount of statistics collected over a 4~month period.
+Section~\ref{sec:intuitive} presents results that confirm assumptions about what we can expect for real-world \smip deployment.
+Section~\ref{sec:notsointuitive} presents not so intuitive results about link symmetry and network stability.
 Finally, Section~\ref{sec:conclusion} concludes this paper and discusses further improvements.
 
 %==============================================================================
