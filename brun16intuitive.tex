@@ -472,7 +472,19 @@ That being said, discussions on link symmetry at the routing layer is largely ar
 \subsection{Network Stability}
 \label{sec:net_stability}
 
-% description
+% unreliability
+
+Wireless in unreliable in nature.
+It is normal that some of the wireless links interconnecting motes ``come and go''.
+That is, links that have been performing well (e.g.~PDR>90\%) can suddenly disappear (e.g.~PDR<10\%).
+Similarly, nodes that weren't able to communicate can suddenly hear one another perfectly.
+
+% time scale
+
+The question, however, is what time scale is considered.
+Early academic work on low-power wireless~\cite{srinivasan08beta} has looked at the the rapidly changes
+
+A low-power wireless
 
 The nodes in the network form a Destination Oriented Direct Acyclic Graph (DODAG) oriented toward the gateway (i.e the DAG root).
 Each node maintains a list of neighbors, with which they communicate or not, and dynamically change their routes depending on link quality. \keoma{@thomas:is it true ? or they use other metrics ?}
