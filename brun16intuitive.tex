@@ -22,14 +22,15 @@
 \newcommand{\lorem}          {\textcolor{green}{Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.}}
 
 % shortcuts
-\newcommand{\smip}                     {SmartMesh~IP\xspace}
-\newcommand{\HRNEIGHBORS}              {{\tt HR\_NEIGHBORS}\xspace}
-\newcommand{\HRDISCOVERED}             {{\tt HR\_DISCOVERED}\xspace}
-\newcommand{\HRDEVICE}                 {{\tt HR\_DEVICE}\xspace}
-\newcommand{\pathcreate}               {{\tt path\_create}\xspace}
-\newcommand{\pathdelete}               {{\tt path\_delete}\xspace}
-\newcommand{\motecreate}               {{\tt mote\_create}\xspace}
-\newcommand{\HRNEIGHBORSTOTALNUMBER}   {140,897}
+\newcommand{\smip}                {SmartMesh~IP\xspace}
+\newcommand{\HRNEIGHBORS}         {{\tt HR\_NEIGHBORS}\xspace}
+\newcommand{\HRDISCOVERED}        {{\tt HR\_DISCOVERED}\xspace}
+\newcommand{\HRDEVICE}            {{\tt HR\_DEVICE}\xspace}
+\newcommand{\pathcreate}          {{\tt path\_create}\xspace}
+\newcommand{\pathdelete}          {{\tt path\_delete}\xspace}
+\newcommand{\motecreate}          {{\tt mote\_create}\xspace}
+\newcommand{\moteId}              {{\tt moteId}\xspace}
+\newcommand{\NUMHRNEIGHBORS}      {140,897}
 
 \graphicspath{{figures/}}
 
@@ -179,61 +180,26 @@ Finally, Section~\ref{sec:conclusion} concludes this paper and discusses further
 \section{Statistics Collected}
 \label{sec:collected}
 
-% where it is collected
+% environment
 
-The wireless network is deployed inside an orchard located in the country-side, around 45~km for Mendoza in Argentina.
-Inside the field no other electronic device than the ones from the sensor network are present.
-Local farmers work inside the field with heavy machinery approximately every 20 days for a period of one to two hours.
-In the region the temperature can raise from $-9$~C in winter to +38~C in Summer.
+The wireless network is deployed in a peach orchard in Junin, 45~km South-East of Mendoza in Western Argentina.
+No other electronic devices are present in the field.
+Farmers work inside the field with heavy machinery for 1-2~h every 20~days approximately.
+In the region, air temperature ranges between $-$9~C in winter (May-October) to +38~C in summer (November-April).
+Because of the sunny weather, day/night temperature swings of 20~C are not uncommon in winter.
 
-% description health reports
+% events and HR
 
 Each device in the network produces both sensor data and network statistics.
-Network statistics can be separated in \textbf{Events} and \textbf{Health Reports} messages.
-The Events messages are non periodic information triggered when a node join/leave the network or when a link (layer 2) is created/deleted.
-The Health Report (HR) message are sent periodically and provide counters and statistics to assess the overall network health.
+Network statistics can be separated in Events and Health Reports messages.
+\textit{Event} messages are non-periodic notifications the network sends when a network event happens (e.g.~a node joins/leaves the network, a link is created/deleted, etc.).
+\textit{Health Report} (HR) messages are sent periodically by each mote; they contain counters and statistics about that mote.
+HRs are used to assess the overall health of the network.
 
-% MOTE_CREATE
+% number received and remainder
 
-Each \smip is associated with an identifier called \textit{netId} that allows to have multiple networks cohabit in the same location.
-When a mote wants to join a network, it listens for traffic and looks for devices that have the same \textit{netId} as itself.
-Once it has identified the devices that share the same \textit{netid}, the node selects the best parent to send its joining request to.
-The joining request will trigger a security handshake mechanism and produce a \motecreate event message.
-This message contains the association between the newly-joined device's MAC address and a \textit{moteId} that is used for future communications.
-
-% PATH_CREATE PATH_DELETE
-
-To communicate with its neighbors, each devices creates `paths'.
-In this paper, we use the word `path' and `link' interchangeably to designate a layer 2 resource reservation and its associated metrics (e.g signal strength, delivery ratio...).
-When two nodes reserve resources to communicate with each others, a \pathcreate event message is produced.
-When the nodes disallocate those resources, a \pathdelete is produced.
-
-% HR_NEIGHBORS
-
-Each node with an associated path is considered as a neighbor.
-When deploying a \smip network, there are strong recommendations to follow, the most important one is that each nodes must have at least three ``good'' neighbors.
-A neighbor is considered as ``good'' when the path with it has a stability superior to a configurable value.
-The stability is given by the Packet Delivery Ration (PDR), i.e the percentage of successfully transmitted messages over the total number of transmitted messages.
-Each node maintains a list of neighbors and periodically send \HRNEIGHBORS messages to the network manager.
-\HRNEIGHBORS messages contain the path information with each neighbor.
-
-% HR_DISCOVERED
-
-Each node also maintains a list of `discovered neighbors' that are potential neighbors that can be used in case of path quality degradation with existing neighbors.
-In the same way as \HRNEIGHBORS, nodes send \HRDISCOVERED messages that give information about the node potential neighbors such as RSSI value with that neighbor.
-
-% HR_DEVICE
-
-The network devices also produce \HRDEVICE messages give information about the mote itself.
-\HRDEVICE messages include information such as node current battery voltage, internal temperature, and total number of messages the node has sent.
-Each device sends one type of Health Report (i.e \HRNEIGHBORS, \HRDISCOVERED, \HRDEVICE) every 5~min making the complete set of Health Reports generated every 15~min.
-
-% messages stats
-
-During the 4-month period we gathered an important amount of network statistics, presented in Table.\ref{tab:msg_stats}.
-Possibly due to power line failure at the network manager side, the network experienced some restarting.
-For this reason, some analysis presented in the next sections are done in shorter period.
-As a side effect, this phenomenon allowed us to verify the network formation and joining process.
+Table~\ref{tab:msg_stats} summarizes the number of events and HRs gathered during the 4~month period.
+In the remainder of this section, we detail the meaning of each of the statistics.
 
 \begin{table}
     \centering
@@ -245,12 +211,54 @@ As a side effect, this phenomenon allowed us to verify the network formation and
         \pathcreate     &   4,098 \\ \hline
         \pathdelete     &   3,653 \\ \hline
         \HRDEVICE       & 132,758 \\ \hline
-        \HRNEIGHBORS    & \HRNEIGHBORSTOTALNUMBER \\ \hline
+        \HRNEIGHBORS    & \NUMHRNEIGHBORS \\ \hline
         \HRDISCOVERED   &  87,737 \\ \hline
     \end{tabular}
-    \caption{The number of statistics collected over 4~months of network operation.}
+    \caption{The number of statistics collected a 4~month period.}
     \label{tab:msg_stats}
 \end{table}
+
+% - - - - - - - - - - - - - -
+\textbf{\motecreate.}
+Each node in a \smip network can periodically send beacons to announce the presence of the network.
+When a mote wants to join a network, it listens for those beacons.
+Once it has heard a number of those, it starts a security handshake with the network.
+During that handshake, the \smip manager send a \motecreate event notification over its serial port.
+This is the event we log.
+It contains, among other information, the association between the newly-joined device's 8-byte MAC address and its 2-byte \moteId.
+
+% - - - - - - - - - - - - - -
+\textbf{\pathcreate and \pathdelete.}
+In \smip terminology, a ``path'' is the link-layer resource which allows two neighbor nodes to communicate\footnote{~In more classical networking terminology, this is often referred to as a ``link''. We use the terms ``path'' and ``link'' interchangeably in this paper.}.
+\thomas{Stopped here.}
+When two nodes reserve resources to communicate with each others, a \pathcreate event message is produced.
+When the nodes disallocate those resources, a \pathdelete is produced.
+
+% - - - - - - - - - - - - - -
+\textbf{\HRNEIGHBORS.}
+Each node with an associated path is considered as a neighbor.
+When deploying a \smip network, there are strong recommendations to follow, the most important one is that each nodes must have at least three ``good'' neighbors.
+A neighbor is considered as ``good'' when the path with it has a stability superior to a configurable value.
+The stability is given by the Packet Delivery Ration (PDR), i.e the percentage of successfully transmitted messages over the total number of transmitted messages.
+Each node maintains a list of neighbors and periodically send \HRNEIGHBORS messages to the network manager.
+\HRNEIGHBORS messages contain the path information with each neighbor.
+
+% - - - - - - - - - - - - - -
+\textbf{\HRDISCOVERED.}
+Each node also maintains a list of `discovered neighbors' that are potential neighbors that can be used in case of path quality degradation with existing neighbors.
+In the same way as \HRNEIGHBORS, nodes send \HRDISCOVERED messages that give information about the node potential neighbors such as RSSI value with that neighbor.
+
+% - - - - - - - - - - - - - -
+\textbf{\HRDEVICE.}
+The network devices also produce \HRDEVICE messages give information about the mote itself.
+\HRDEVICE messages include information such as node current battery voltage, internal temperature, and total number of messages the node has sent.
+Each device sends one type of Health Report (i.e \HRNEIGHBORS, \HRDISCOVERED, \HRDEVICE) every 5~min making the complete set of Health Reports generated every 15~min.
+
+% analysis
+
+Possibly due to power line failure at the network manager side, the network experienced some restarting.
+For this reason, some analysis presented in the next sections are done in shorter period.
+As a side effect, this phenomenon allowed us to verify the network formation and joining process.
 
 %==============================================================================
 \section{Intuitive Results}
@@ -282,7 +290,7 @@ We observe that all the values are located between the Friis' transmission equat
 
 Due to the inherent physical unreliability of the radio medium, it is impossible to know if a future transmission will be successful or not.
 The Packet Delivery Ratio (PDR) is the proportion of successful transmissions over the total number of transmissions.
-Over a period of 4 months, \HRNEIGHBORSTOTALNUMBER \HRNEIGHBORS messages were collected.
+Over a period of 4 months, \NUMHRNEIGHBORS \HRNEIGHBORS messages were collected.
 Nodes maintain a list of potential neighbors with which they do not communicate with.
 We removed the portion of neighbors with no transmission (237,252 messages) and kept only the DC9003 motes, resulting into a total of 125,103 messages (approx. 27\% from the total number of \HRNEIGHBORS).
 
