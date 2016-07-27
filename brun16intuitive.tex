@@ -30,7 +30,7 @@
 \newcommand{\pathdelete}          {{\tt path\_delete}\xspace}
 \newcommand{\motecreate}          {{\tt mote\_create}\xspace}
 \newcommand{\moteId}              {{\tt moteId}\xspace}
-\newcommand{\NUMHRNEIGHBORS}      {140,897}
+\newcommand{\NUMHRNEIGHBORS}      {140,897\xspace}
 
 \graphicspath{{figures/}}
 
@@ -280,14 +280,14 @@ We then look at key performance indicators of \smip networks: end-to-end reliabi
 \subsection{RSSI vs. Distance}
 \label{sec:rssi_distance}
 
-From the Friis' transmission equation, we know that RSSI can be stated as function of distance.
-To verify that our dataset corresponds to that equation we plot the RSSI over the distance (log-scale) of the data collected between the 18th of May to the 6th of June (19 days) in Fig.\ref{fig:pister_hack}.
-We observe that all the values are located between the Friis' transmission equation and a -40dB shift.
+The Friis transmission model~\cite{saunders07antennas} gives the relationship between the Receive Signal Strength (RSSI)\footnote{~Strictly speaking, the RSSI is the Receive Signal Strength \textit{Indicator}, a value returned by radio chip. Because of its prevalence in low-power wireless literature, we use it RSS and RSSI interchangeably.} in free space.
+While it does \textit{not} apply directly to our Smart Agriculture outdoor deployment, we node in Fig.~\ref{fig:pister_hack} that the individual RSSI values are located between the Friis model, and the Friis model offset by $-$40~dB.
+This corroborates the results from~\cite{zats10wireless}.
 
 \begin{figure}
     \centering
     \includegraphics[width=\columnwidth]{pister_hack}
-    \caption{All the measures are located between the Friis equation and a -40dB shift.}
+    \caption{RSSI measurements are roughly located between the Friis model and the Friis model shifted by $-$40~dB.}
     \label{fig:pister_hack}
 \end{figure}
 
@@ -298,30 +298,17 @@ We observe that all the values are located between the Friis' transmission equat
 % sample presentation
 
 Due to the inherent physical unreliability of the radio medium, it is impossible to know if a future transmission will be successful or not.
-The Packet Delivery Ratio (PDR) is the proportion of successful transmissions over the total number of transmissions.
-Over a period of 4 months, \NUMHRNEIGHBORS \HRNEIGHBORS messages were collected.
-Nodes maintain a list of potential neighbors with which they do not communicate with.
-We removed the portion of neighbors with no transmission (237,252 messages) and kept only the DC9003 motes, resulting into a total of 125,103 messages (approx. 27\% from the total number of \HRNEIGHBORS).
+The Packet Delivery Ratio (PDR) is the portion of successful link-layer transmissions over the total number of link-layer transmission attempts.
+A failed attempt means that the link-layer frame needs to be re-transmitted; it does \textit{not} mean the packet is lost.
+Over a period of 4~months, \NUMHRNEIGHBORS \HRNEIGHBORS messages are collected.
+These contain, for a given node, the number of link-layer transmission attempts and successes to each of its neighbors.
+We remove the portion of neighbors with no transmission (237,252 messages) and keep only the DC9003 motes, resulting in a total of 125,103 messages (approx. 27\% from the total number of \HRNEIGHBORS).
 
-% Waterfall
+% plot
 
-In Fig.\ref{fig:waterfall}, we show the so-called \textit{waterfall plot}, displaying the RSSI values against PDR values over the 4-months period.
-A clear threshold appears when the RSSI values go below -85~dBm.
-For RSSI values above that threshold, the PDR drastically decreases implying retransmission.
-When the RSSI values are below that threshold, PDR values remain near 100\%, inducing successful transmissions.
-The device manufacturer documentation~\cite{smip_app_note} indicates that a path is considered as "bad" when:
-
-\begin{itemize}
-  \item RSSI is above -80dBm and PDR < 50\%
-  \item RSSI is above -70dBm and PDR < 70\%
-\end{itemize}
-
-% interferences
-
-A \textit{waterfall plot} either shifted right with very few path below -70dBm or with non-constantly decreasing curve would be an example of interference-prone environment.
-As Fig.\ref{fig:waterfall} shows, devices do not have issues when communicating with links that have a low RSSI.
-It means that high interferences are not present on the network.
-This is confirmed by the large distance with other radio-communicating devices due to the location of the orchard.
+Fig.~\ref{fig:waterfall} plots the PDR and the RSSI of these 125,103 messages.
+For readability, we also plot the average/deviation of the data for a given RSSI value.
+Because of its shape, this is known as the ``waterfall plot''.
 
 \begin{figure}
     \centering
@@ -332,6 +319,22 @@ This is confirmed by the large distance with other radio-communicating devices d
     }
     \label{fig:waterfall}
 \end{figure}
+
+Overall, above $-$85~dBm, the PDR of the link is very good (>95\%).
+Below that value, the PDR rapidly degrades, indicating that, on these links, frequent retransmissions will happen.
+The device manufacturer documentation~\cite{smip_app_note} indicates that a path is considered as ``bad'' when:
+
+\begin{itemize}
+  \item RSSI>$-$80~dBm and PDR<50\%
+  \item RSSI>$-$70~dBm and PDR<70\%
+\end{itemize}
+
+This is not the case here.
+
+% interferences
+
+A \textit{waterfall plot} either shifted right with very few paths below $-$70~dBm, or with non-constantly decreasing curve would be an example of interference-prone environment.
+This is not the case if Fig.~\ref{fig:waterfall}, meaning that the \smip network is not suffering high levels of interferences from co-located wireless devices.
 
 %------------------------------------------------------------------------------
 \subsection{End-to-End Reliability}
