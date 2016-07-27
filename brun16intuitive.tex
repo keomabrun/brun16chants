@@ -438,20 +438,19 @@ Motes report the average RSSI value of the packets received from each neighbor i
 Before the network uses channel hopping, these reported RSSI values are also averaged over 15 IEEE802.15.4 frequencies~\cite{std_ieee802154_2011}.
 In this section, we use the term ``RSSI'' to denote the average RSSI over 15 frequencies.
 
-% what is asymetry
+% what is asymmetry
 
-A common assumption is that links between neighbor low-power wireless devices are hugely asymetric.
+A common assumption is that links between neighbor low-power wireless devices are hugely asymmetric.
 That is, on a link between nodes $A$ and $B$, $A$ receives $B$'s link-layer frames with an RSSI very different from the frames $B$ receives from $A$.
-Numerous routing protocols (often standardized~\todo{ref OLSR?}) reuse that assumption and start with a costly phase to filter out asymetric links.
+Numerous routing protocols (often standardized~\cite{rfc3626}) reuse that assumption and start with a costly phase to filter out asymetric links.
 
 % what we measure
 
-We look at the link statistics between the 18 June 2016 and the 4 July 2016 (16 days).
-The sample contains 411,132 \HRNEIGHBORS messages received from 14 DC9003 nodes (i.e.~same hardware).
+We look at the link statistics between 18 June 2016 and the 4 July 2016 (16 days).
+The sample contains 411,132 \HRNEIGHBORS messages received from 14 DC9003 nodes (same hardware).
 During that period, 21~links are active with at least 250~transmissions for each link.
-For each of those links, we compute the RSSI difference between the two directions of the link (i.e from A to B and from B to A) and present the results in Fig.~\ref{fig:tab_symmetry}).
-The very low RSSI difference shows that the links are very symmetrical.
-Note that the RSSI is an averaged value over the different channels.
+For each of those links, we compute the difference between average RSSI in each directions.
+Results are presented in Fig.~\ref{fig:tab_symmetry}.
 
 \begin{figure}
     \centering
@@ -459,6 +458,15 @@ Note that the RSSI is an averaged value over the different channels.
     \caption{The different active links between 2016-06-18 and 2016-06-25.}
     \label{fig:tab_symmetry}
 \end{figure}
+
+% discussion
+
+Fig.~\ref{fig:tab_symmetry} shows that the RSSI difference never exceeds a couple of dB.
+Looking at Fig.~\ref{fig:waterfall}, this translates into a handful of percentage points difference in PDR only.
+This means the links can be considered symmetric.
+This result is in-line with the physical phenomenon that the signal tranveling from $A$ to $B$ undergoes the same attenuation as that from $B$ to $A$.
+This result would \textit{not} hold if the neighbor radios had a different transmit power or sensitivity.
+That being said, discussions on link symmetry at the routing layer is largely artificial, as any ``good'' medium access control (MAC) protocol uses link-layer acknowledgments.
 
 %------------------------------------------------------------------------------
 \subsection{Network Stability}
