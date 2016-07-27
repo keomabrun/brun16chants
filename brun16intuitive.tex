@@ -383,7 +383,7 @@ The node with the longest lifetime is {\tt 60-02-4b}.
 From Fig.~\ref{fig:map}, we can see that this is a leaf node.
 Since it does not have to relay data from any children, it is normal that this node consumes very little.
 The node with the shortest lifetime is {\tt b0-00-cc}.
-It is normal that this node spends more energy as all the traffic passes through it (see Fig.\ref{fig:map}).
+It is normal that this node spends more energy as all the traffic passes through it (see Fig.~\ref{fig:map}).
 While being the most loaded node, {\tt b0-00-cc} has over 4 years of lifetime.
 This shows the ultra-low power consumption of the \smip network.
 
@@ -455,7 +455,11 @@ Results are presented in Fig.~\ref{fig:tab_symmetry}.
 \begin{figure}
     \centering
     \includegraphics[width=\columnwidth]{sym_plot}
-    \caption{The different active links between 2016-06-18 and 2016-06-25.}
+    \caption{
+        The different in RSSI between the two directions of the 20~links continuously active in the 18-25 June 2016 period.
+        The average value (the bar) is complemented with the standard deviation.
+        The color of the bar indicates the sample size.
+    }
     \label{fig:tab_symmetry}
 \end{figure}
 
@@ -482,55 +486,60 @@ Similarly, nodes that weren't able to communicate can suddenly hear one another 
 % time scale
 
 The question, however, is what time scale is considered.
-Early academic work on low-power wireless~\cite{srinivasan08beta} has looked at the the rapidly changes
-
-A low-power wireless
-
-The nodes in the network form a Destination Oriented Direct Acyclic Graph (DODAG) oriented toward the gateway (i.e the DAG root).
-Each node maintains a list of neighbors, with which they communicate or not, and dynamically change their routes depending on link quality. \keoma{@thomas:is it true ? or they use other metrics ?}
-When reliability is high the network topology stay stable and the nodes use the same neighbors.
-When the reliability decreases on a certain path, nodes select other neighbors, making the network topology to change.
-Instability in the network increases the signaling traffic to reconstruct the routes and introduce more bandwidth and energy consumption.
+Early academic work on low-power wireless~\cite{srinivasan08beta} has looked at the ``burtiness'' of the wireless links, i.e.~changes over the course of \todo{}~ms.
+Some follow-up work has taken the assumption that wireless links are so unstable that only a reactive routing approach works.
+In this section, we infirm this statement by looking at the stability of the network.
 
 % dataset
 
-To study the network stability we use the \pathdelete and \pathcreate event messages described in Section~\ref{sec:collected}.
-Those messages are sent every time a path with a neighbor is deleted or created, respectively.
-Node {\tt b0-00-cc} was removed from the dataset as it does not respect the Dust requirement of having at least two parents to associate with.
+In particular, we look at the \pathdelete and \pathcreate events.
+These are generated each time a node adds/deletes a neighbor to communicate with, which happens for example when the routing topology changes (see Section~\ref{sec:collected}).
+The number of \pathdelete and \pathcreate events is a direct measurement of the network stability.
+Note that we remove node {\tt b0-00-cc} from the dataset as it does not respect the Dust requirement of having at least two parents to associate with.
 Due to the lack of second parent, the node was producing over 20 times the amount of messages than all the other nodes assembled.
 
 % results
 
-Fig.\ref{fig:net_churn} shows the number of events message per hour as well as the total number of links per hour over a two-weeks period.
-We can see that the number of links stay close to 35 for the entire period.
-The number of \pathcreate and \pathdelete is also kept low.
+Fig.~\ref{fig:net_churn} shows the number of \pathdelete and \pathcreate events per day, over a 16-day period.
+For reference, the total number of links in the network is also depicted.
+There are less than 5 \pathdelete or \pathcreate events \textit{per day} in the entire network.
+This means that links, once established, can remain useful for days/weeks at a time, and that the network is extremely stable.
 
 \begin{figure}
     \centering
     \includegraphics[width=\columnwidth]{net_churn}
-    \caption{Network churn.}
+    \caption{
+        Network stability: the number of \pathdelete and \pathcreate events in a day over a 16-day period.
+        The top portion shows the total number of links, for reference.
+    }
     \label{fig:net_churn}
 \end{figure}
+
+% discussion
+
+This stability can largely be attributed to the use of channel hopping.
+Changing frequency for each packet is known to efficiently combat multi-path fading and external interference~\cite{watteyne09reliability}, the major causes of instability.
+It doesn't contradict the findings of~\cite{srinivasan08beta}, it just means that link-layer retransmissions can efficiently cope with link burstiness, and that the multi-hop topology can remain very stable.
 
 %==============================================================================
 \section{Conclusion}
 \label{sec:conclusion}
 
 The PEACH project started in April 2016 to build a low-power wireless sensor network based, turn-key solution to predict frost event in peach orchards.
-After 3 months of measurements, we present the first data analysis from the collected data.\\
+After 3 months of measurements, we present the first data analysis from the collected data.
 
-Some results are intuitive.\\
+Some results are intuitive.
 1. The RSSI against distance measurements follow the Friis transmission equation.
 2. The relation between RSSI and PDR shows that interferences inside the field are low.
 3. The overall network statistics that are reliability, stability and latency did not change much compared to the project first 24~hours measurements.
-This shows that the network statistics are highly predictable.\\
+This shows that the network statistics are highly predictable.
 4. The nodes that relay more traffic spend more energy than the other nodes.
-The most loaded note has a 4.3~years lifetime showing the extremely low consumption of the network.\\
+The most loaded note has a 4.3~years lifetime showing the extremely low consumption of the network.
 
-Some results are not intuitive.\\
+Some results are not intuitive.
 1. While it is often assumed that RSSI is asymmetrical between two nodes, we show that when considering the averaged RSSI over the 16 different IEEE802.15.4 channels, links are very symmetrical.
 2. The TSCH based network can show very high stability.
-We observed less than 5 path modifications per hour during a two weeks period.\\
+We observed less than 5 path modifications per hour during a two weeks period.
 
 This first study prepares the ground for the next stage of the project where we will add additional sensors and present frost prediction results.
 
