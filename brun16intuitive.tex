@@ -270,18 +270,18 @@ As a side effect, this phenomenon allowed us to verify the network formation and
 \label{sec:intuitive}
 
 Previous publications~\cite{watteyne16peach,watteyne10mitigating,watteyne09reliability,watteyne15industrial} underlie the performance of TSCH networks in general, and \smip in particular.
-Standardization work in the IETF 6TiSCH working group\footnote{~\url{https://tools.ietf.org/wg/6tisch/charters}} around TSCH networks further illustrate the move of the industrt towards this type networking technology.
+Standardization work in the IETF 6TiSCH working group\footnote{~\url{https://tools.ietf.org/wg/6tisch/charters}} around TSCH networks further illustrates the move of the industry towards this type of networking technology.
 So while we expect good performance from the network, this section verifies that this is indeed the case.
 We start by looking at two physical-layer metrics: RSSI vs Distance (Section~\ref{sec:rssi_distance}) and PDR vs. RSSI (Section~\ref{sec:waterfall}).
-While these have no dependency on TSCH (the type medium access), they allow us to verifyt the overall connectivity in the network.
+While these have no dependency on TSCH (the type medium access), they allow us to verify the overall connectivity in the network.
 We then look at key performance indicators of \smip networks: end-to-end reliability (Section~\ref{sec:net_reliability}) and network lifetime (Section~\ref{sec:lifetime}).
 
 %------------------------------------------------------------------------------
 \subsection{RSSI vs. Distance}
 \label{sec:rssi_distance}
 
-The Friis transmission model~\cite{saunders07antennas} gives the relationship between the Receive Signal Strength (RSSI)\footnote{~Strictly speaking, the RSSI is the Receive Signal Strength \textit{Indicator}, a value returned by radio chip. Because of its prevalence in low-power wireless literature, we use it RSS and RSSI interchangeably.} in free space.
-While it does \textit{not} apply directly to our Smart Agriculture outdoor deployment, we node in Fig.~\ref{fig:pister_hack} that the individual RSSI values are located between the Friis model, and the Friis model offset by $-$40~dB.
+The Friis transmission model~\cite{saunders07antennas} gives the relationship between the Received Signal Strength (RSSI)\footnote{~Strictly speaking, the RSSI is the Received Signal Strength \textit{Indicator}, a value returned by radio chip. Because of its prevalence in low-power wireless literature, we use it RSS and RSSI interchangeably.} in free space.
+While it does \textit{not} apply directly to our Smart Agriculture outdoor deployment, we note in Fig.~\ref{fig:pister_hack} that the individual RSSI values are located between the Friis model, and the Friis model offset by $-$40~dB.
 This corroborates the results from~\cite{zats10wireless}.
 
 \begin{figure}
@@ -333,8 +333,8 @@ This is not the case here.
 
 % interferences
 
-A \textit{waterfall plot} either shifted right with very few paths below $-$70~dBm, or with non-constantly decreasing curve would be an example of interference-prone environment.
-This is not the case if Fig.~\ref{fig:waterfall}, meaning that the \smip network is not suffering high levels of interferences from co-located wireless devices.
+A \textit{waterfall plot} either shifted right with very few paths below $-$70~dBm, or with a non-constantly decreasing curve would be an example of interference-prone environment.
+This is not the case in Fig.~\ref{fig:waterfall}, meaning that the \smip network is not experiencing high levels of interferences from co-located wireless devices.
 
 %------------------------------------------------------------------------------
 \subsection{End-to-End Reliability}
@@ -342,7 +342,7 @@ This is not the case if Fig.~\ref{fig:waterfall}, meaning that the \smip network
 
 % steady state results
 
-We expect the \smip network to offer wire-like reliable.
+We expect the \smip network to offer wire-like reliability.
 Table~\ref{tab:net_stats} confirms that this is the case.
 It presents statistics gathered over July 15-25 2016 period.
 
@@ -359,7 +359,7 @@ It presents statistics gathered over July 15-25 2016 period.
 \end{table}
 
 It shows that, as none of the 693,844 packets generated in the network was lost, the end-to-end reliability is 100\%.
-The average PDR over all the links is very high (95\%), indicates the nodes are deployed close enough to one another.
+The average PDR over all the links is very high (95\%), indicating that the nodes are deployed close enough to one another.
 Finally, the average latency over all nodes is 700~ms.
 These results are very similar to the very initial results presented in~\cite{watteyne16peach}, indicating no degradation in performance of the \smip network over the 3~month operation.
 
@@ -382,7 +382,7 @@ Assuming the same energy consumption rate, we can extrapolate the lifetime.
 The node with the longest lifetime is {\tt 60-02-4b}.
 From Fig.~\ref{fig:map}, we can see that this is a leaf node.
 Since it does not have to relay data from any children, it is normal that this node consumes very little.
-The node with the shortest lifetime is {\tt b0-00-cc} 
+The node with the shortest lifetime is {\tt b0-00-cc}.
 It is normal that this node spends more energy as all the traffic passes through it (see Fig.\ref{fig:map}).
 While being the most loaded node, {\tt b0-00-cc} has over 4 years of lifetime.
 This shows the very low consumption of the wireless mesh network.
