@@ -269,7 +269,7 @@ As a side effect, this phenomenon allowed us to verify the network formation and
 \section{Intuitive Results}
 \label{sec:intuitive}
 
-Previous publications~\cite{watteyne15industrial,watteyne16peach,watteyne10mitigating,watteyne09reliability} underlie the performance of TSCH networks in general, and \smip in particular.
+Previous publications~\cite{watteyne16peach,watteyne10mitigating,watteyne09reliability,watteyne15industrial} underlie the performance of TSCH networks in general, and \smip in particular.
 Standardization work in the IETF 6TiSCH working group\footnote{~\url{https://tools.ietf.org/wg/6tisch/charters}} around TSCH networks further illustrate the move of the industrt towards this type networking technology.
 So while we expect good performance from the network, this section verifies that this is indeed the case.
 We start by looking at two physical-layer metrics: RSSI vs Distance (Section~\ref{sec:rssi_distance}) and PDR vs. RSSI (Section~\ref{sec:waterfall}).
@@ -379,15 +379,12 @@ This number allows us to predict the lifetime of the device.
 
 Table~\ref{tab:stats_charge} shows charge consumed by each of the motes over the 3~month period (87 days), as well as the portion of the battery this represents.
 Assuming the same energy consumption rate, we can extrapolate the lifetime.
-
 The node with the longest lifetime is {\tt 60-02-4b}.
 From Fig.~\ref{fig:map}, we can see that this is a leaf node.
 Since it does not have to relay data from any children, it is normal that this node consumes very little.
-
 The node with the shortest lifetime is {\tt b0-00-cc} 
 It is normal that this node spends more energy as all the traffic passes through it (see Fig.\ref{fig:map}).
 While being the most loaded node, {\tt b0-00-cc} has over 4 years of lifetime.
-
 This shows the very low consumption of the wireless mesh network.
 
 \begin{table}
