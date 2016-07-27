@@ -98,7 +98,7 @@ We feed the collected data into a database, and by analyzing the data in real-ti
 \begin{figure}
     \centering
     \includegraphics[width=\columnwidth]{orchard}
-    \caption{The wireless motes deployed in a peach orchard in Mendoza, Argentina.}
+    \caption{The wireless motes deployed in the peach orchard in Mendoza, Argentina.}
     \label{fig:orchard}
 \end{figure}
 
@@ -188,7 +188,7 @@ The wireless network is deployed in a peach orchard in Junin, 45~km South-East o
 No other electronic devices are present in the field.
 Farmers work inside the field with heavy machinery for 1-2~h every 20~days approximately.
 In the region, air temperature ranges between $-$9~C in winter (May-October) to +38~C in summer (November-April).
-Because of the sunny weather, day/night temperature swings of 20~C are not uncommon in winter.
+Because of the sunny weather, day/night temperature swings of 10+~C are not uncommon in winter.
 
 % events and HR
 
@@ -216,7 +216,7 @@ In the remainder of this section, we detail the meaning of each of the statistic
         \HRNEIGHBORS    & \NUMHRNEIGHBORS \\ \hline
         \HRDISCOVERED   &  87,737         \\ \hline
     \end{tabular}
-    \caption{The number of statistics collected a 3~month period.}
+    \caption{The number of statistics collected over the 3~month period.}
     \label{tab:msg_stats}
 \end{table}
 
@@ -316,8 +316,7 @@ Because of its shape, this is known as the ``waterfall plot''.
     \centering
     \includegraphics[width=\columnwidth]{waterfall}
     \caption{
-        The PDR/RSSI waterfall.
-        Links with low RSSI present good PDR showing the low interferences in the network.
+        The PDR/RSSI ``waterfall'' plot.
     }
     \label{fig:waterfall}
 \end{figure}
@@ -356,7 +355,7 @@ It presents statistics gathered over July 15-25 2016 period.
         latency     & 700~msec\\
         \hline
     \end{tabular}
-    \caption{The overall network statistic over the last 10 days.}
+    \caption{The overall network performance in the 15-25 July 2016 period.}
     \label{tab:net_stats}
 \end{table}
 
@@ -415,7 +414,7 @@ This shows the ultra-low power consumption of the \smip network.
      \tt{b0-00-cc}  & 567,232~C (5.6\% battery) &  4.3~years \\
      \hline
   \end{tabular}
-  \caption{The charge statistics.}
+  \caption{Per-node power consumption and associated expected lifetime when powered by a pair of AA batteries.}
   \label{tab:stats_charge}
 \end{table}
 
@@ -458,9 +457,10 @@ Results are presented in Fig.~\ref{fig:tab_symmetry}.
     \centering
     \includegraphics[width=\columnwidth]{sym_plot}
     \caption{
-        The different in RSSI between the two directions of the 20~links continuously active in the 18-25 June 2016 period.
+        The difference in RSSI between the two directions of 20~wireless links
+        (links continuously active in the 18-25 June 2016 period).
         The average value (the bar) is complemented with the standard deviation.
-        The color of the bar indicates the sample size.
+        The color of the bar indicates sample size.
     }
     \label{fig:tab_symmetry}
 \end{figure}
@@ -483,7 +483,7 @@ That being said, discussions on link symmetry at the routing layer is largely ar
 Wireless in unreliable in nature.
 It is normal that some wireless links interconnecting motes ``come and go''.
 That is, links that have been performing well (e.g.~PDR>90\%) can suddenly disappear (e.g.~PDR<10\%).
-Similarly, nodes that were nott able to communicate can suddenly hear one another perfectly.
+Similarly, nodes that were not able to communicate can suddenly hear one another perfectly.
 
 % time scale
 
@@ -511,8 +511,8 @@ This means that links, once established, can remain useful for days/weeks at a t
     \centering
     \includegraphics[width=\columnwidth]{net_churn}
     \caption{
-        Network stability: the number of \pathdelete and \pathcreate events in a day over a 16-day period.
-        The top portion shows the total number of links, for reference.
+        Network stability: the number of \pathdelete and \pathcreate events generated per day over a 16-day period.
+        The top portion shows the total number of links.
     }
     \label{fig:net_churn}
 \end{figure}
@@ -524,7 +524,6 @@ Changing frequency for each packet is known to efficiently combat multi-path fad
 It does not contradict the findings of~\cite{srinivasan08beta}, it just means that link-layer retransmissions can efficiently cope with link burstiness, and that the multi-hop topology can remain very stable.
 
 %==============================================================================
-\newpage
 \section{Conclusion}
 \label{sec:conclusion}
 
