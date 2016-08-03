@@ -226,7 +226,7 @@ Each node in a \smip network can periodically send beacons to announce the prese
 When a mote wants to join a network, it listens for those beacons.
 Once it has heard a number of those, it starts a security handshake with the network.
 During that handshake, the \smip manager sends a \motecreate event notification over its serial port.
-This is the event we log.
+This is the event we log\footnote{We expect only one \motecreate event per mote. Due to power issues at the manager side, the network restarted a couple of times and new events were created}.
 It contains, among other information, the association between the newly-joined device's 8-byte MAC address and its 2-byte \moteId.
 
 % - - - - - - - - - - - - - -
