@@ -378,14 +378,12 @@ This number allows us to predict the lifetime of the device.
 
 % results
 
-Table~\ref{tab:stats_charge} shows charge consumed by each of the motes over the 3~month period (87 days), as well as the portion of the battery this represents.
+Table~\ref{tab:stats_charge} shows charge consumed by the 16~motes inside the orchard over the 3~month period (87 days), as well as the portion of the battery this represents.
 Assuming the same energy consumption rate, we can extrapolate the lifetime.
 The node with the longest lifetime is {\tt 60-02-4b}.
 From Fig.~\ref{fig:map}, we can see that this is a leaf node.
 Since it does not have to relay data from any children, it is normal that this node consumes very little.
-The node with the shortest lifetime is {\tt b0-00-cc}.
-It is normal that this node spends more energy as all the traffic passes through it (see Fig.~\ref{fig:map}).
-While being the most loaded node, {\tt b0-00-cc} has over 4 years of lifetime.
+The node with the shortest lifetime is {\tt 60-03-82} and has over 5 years of lifetime.
 This shows the ultra-low power consumption of the \smip network.
 
 \begin{table}
@@ -409,9 +407,6 @@ This shows the ultra-low power consumption of the \smip network.
      \tt{60-05-ab}  & 284,764~C (2.8\% battery) &  8.7~years \\
      \tt{60-06-27}  & 321,879~C (3.2\% battery) &  7.7~years \\
      \tt{60-08-d5}  & 263,120~C (2.6\% battery) &  9.3~years \\
-     \tt{b0-00-87}  & 199,626~C (2.0\% battery) & 12.3~years \\
-     \tt{b0-00-aa}  & 544,439~C (5.4\% battery) &  4.5~years \\
-     \tt{b0-00-cc}  & 567,232~C (5.6\% battery) &  4.3~years \\
      \hline
   \end{tabular}
   \caption{Per-node power consumption and associated expected lifetime when powered by a pair of AA batteries.}
