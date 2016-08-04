@@ -163,6 +163,7 @@ In 3~months of operation, we gathered over than 4~million temperature values, an
 % the goal of this paper
 
 The goal of this paper is to analyze the network statistics over a 3~month period the network has been operating, and precisely assess the performance of the network.
+\newpage
 This paper makes the following contributions:
 \begin{itemize}
     \item We confirm that the \smip network exhibits years of battery lifetime and wire-like reliability;
@@ -286,7 +287,7 @@ The Friis transmission model~\cite{saunders07antennas} gives the relationship be
 While it does \textit{not} apply directly to our Smart Agriculture outdoor deployment, we note in Fig.~\ref{fig:pister_hack} that the individual RSSI values are located between the Friis model, and the Friis model offset by $-$40~dB.
 This corroborates the results from~\cite{zats10wireless}.
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=\columnwidth]{pister_hack}
     \caption{RSSI measurements are roughly located between the Friis model and the Friis model shifted by $-$40~dB.}
@@ -517,7 +518,7 @@ This means that links, once established, can remain useful for days/weeks at a t
 This stability can largely be attributed to the use of channel hopping.
 Changing frequency for each packet is known to efficiently combat multi-path fading and external interference~\cite{watteyne09reliability}, the major causes of instability.
 It does not contradict the findings of~\cite{srinivasan08beta}, it just means that link-layer retransmissions can efficiently cope with link burstiness, and that the multi-hop topology can remain very stable.
-
+\newpage
 %==============================================================================
 \section{Conclusion}
 \label{sec:conclusion}
